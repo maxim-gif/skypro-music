@@ -1,0 +1,11 @@
+.App-header{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+.App-header > span{
+  font-size: 50px;
+  color: red;
+  text-align: center;
+}
