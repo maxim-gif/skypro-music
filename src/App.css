@@ -36,6 +36,12 @@ ul li {
   font-style: normal;
 }
 
+@keyframes glowing {
+  0% { background-color: #313131;}
+  50% { background-color: #646464;}
+  100% { background-color: #313131; }
+}
+
 html,
 body {
   width: 100%;
@@ -43,6 +49,7 @@ body {
   font-family: "StratosSkyeng", sans-serif;
   color: #ffffff;
 }
+
 
 .wrapper {
   width: 100%;
@@ -146,7 +153,9 @@ body {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
-
+.loading {
+  background-color: #313131;
+}
 .nav__menu {
   display: block;
   visibility: visible;
@@ -602,6 +611,7 @@ body {
 }
 
 .bar__player-block {
+  background-color: #1C1C1C;
   height: 73px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1230,4 +1240,38 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+
+.track__title-text-loading{
+  width: 350px;
+  animation: glowing 1300ms infinite;
+}
+.track__author-loading{
+  width: 300px;
+  margin-right: 21px;
+  animation: glowing 1300ms infinite;
+}
+.track__album-loading{
+  width: 230px;
+  margin-right: 15px;
+  animation: glowing 1300ms infinite;
+}
+.track__title-text-loading > a > span,
+.track__title-text-loading > a,
+.track__author-loading > a,
+.track__album-loading > a{
+  color: transparent;
+}
+.sidebar__item-loading{
+  animation: glowing 1300ms infinite;
+}
+.sidebar__item-loading > a{
+  display: none;
+}
+.track-play-loading{
+  animation: glowing 1300ms infinite;
+}
+.track-play-loading > a{
+  color: transparent;
 }

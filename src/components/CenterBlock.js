@@ -1,5 +1,7 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import CenterBlockContent from '../components/CenterBlockContent.js'
-function CenterBlock() {
+function CenterBlock({isLoading}) {
     return(
     <div className="main__centerblock centerblock">
         <div className="centerblock__search search">
@@ -24,8 +26,11 @@ function CenterBlock() {
           </div>
           <div className="filter__button button-genre _btn-text">жанру</div>
         </div>
-        <CenterBlockContent/>
+        <CenterBlockContent isLoading={isLoading}/>
     </div>
     )
 }
+CenterBlock.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
 export default CenterBlock;
