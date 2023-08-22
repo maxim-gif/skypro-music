@@ -68,8 +68,11 @@ body {
 
 ._btn-text:hover {
   border-color: #d9b6ff;
-  color: #d9b6ff;
   cursor: pointer;
+}
+
+._btn-text:hover > span{
+  color: #d9b6ff;
 }
 
 ._btn-icon:hover svg {
@@ -110,6 +113,7 @@ body {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 
 .main__nav {
   width: 244px;
@@ -306,6 +310,7 @@ body {
 }
 
 .filter__button {
+  position: relative;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -313,6 +318,61 @@ body {
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
+}
+
+.select-modal{
+  position: relative;
+
+}
+.modal-link-box{
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  overflow-y: auto;
+}
+.modal-link-box::-webkit-scrollbar-thumb{
+  background-color: #fff;
+  border-radius: 10px;
+}
+.modal-link-box::-webkit-scrollbar{
+  border-radius: 10px;
+  width: 4px;
+  background-color: #4B4949;
+}
+.modal-link{
+  display: block;
+  font-size: 20px;
+  font-weight: 400;
+}
+.modal-link:hover{
+    text-decoration: underline;
+  color: #B672FF;
+}
+.select-author,
+.select-year,
+.select-genre{
+  display: none;
+  position: absolute;
+  border-radius: 12px;
+  padding: 34px;
+  top: 48px;
+  left: 0;
+  background-color: #313131;
+}
+
+.select-genre{
+  height: 305px;
+  width: 248px;
+}
+.select-author{
+  display: block;
+  width: 248px;
+  height: 305px;
+}
+.select-year{
+  width: 221px;
+  height: 196px;
 }
 
 .filter__button:not(:last-child) {
@@ -786,6 +846,7 @@ body {
   stroke: #4e4e4e;
 }
 
+
 .track-play__author {
   grid-row: 1;
   grid-column: 2;
@@ -1244,7 +1305,7 @@ body {
 
 
 .track__title-text-loading{
-  width: 350px;
+  width: 250px;
   animation: glowing 1300ms infinite;
 }
 .track__author-loading{
@@ -1274,4 +1335,10 @@ body {
 }
 .track-play-loading > a{
   color: transparent;
+}
+.active{
+  border-color: #d9b6ff;
+}
+.active > span{
+  color: #d9b6ff;
 }
