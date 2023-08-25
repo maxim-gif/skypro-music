@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CenterBlockContent from '../components/CenterBlockContent.js'
-import Filter from '../components/filter.js'
+import CenterBlockContent from '../CenterBlockContent.js'
+import Filter from '../filter/filter.js'
+import * as S from './CenterBlock.style.js'
 function CenterBlock({isLoading}) {
     return(
-    <div className="main__centerblock centerblock">
-        <div className="centerblock__search search">
-          <svg className="search__svg">
+    <S.MainCenterBlock>
+        <S.CenterBlockSearch>
+          <S.SearchSvg>
             <use xlinkHref="img/icon/sprite.svg#icon-search"></use>
-          </svg>
-          <input
-            className="search__text"
+          </S.SearchSvg>
+          <S.SearchText
             type="search"
             placeholder="Поиск"
             name="search"
           />
-        </div>
+        </S.CenterBlockSearch>
         <h2 className="centerblock__h2">Треки</h2>
-        <Filter isLoading={isLoading}/>
+        <Filter $isLoading={isLoading}/>
         <CenterBlockContent isLoading={isLoading}/>
-    </div>
+    </S.MainCenterBlock>
     )
 }
 CenterBlock.propTypes = {

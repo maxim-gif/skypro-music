@@ -1,7 +1,7 @@
-import MainNav from './components/MainNav.js'
-import Bar from './components/Bar.js'
-import Sidebar from './components/Sidebar.js'
-import CenterBlock from './components/CenterBlock.js'
+import MainNav from './components/MainNav/MainNav.js'
+import Bar from './components/bar/Bar.js'
+import Sidebar from './components/Sidebar/Sidebar.js'
+import CenterBlock from './components/CenterBlock/CenterBlock.js'
 import './App.css';
 import React from 'react';
 const { useState, useEffect } = React;
