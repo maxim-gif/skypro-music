@@ -1,6 +1,9 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import BarVolume from '../components/BarVolume.js'
 import BarControl from '../components/BarControl.js'
-function Bar() {
+function Bar({isLoading}) {
+
     return(
       <div className="bar">
         <div className="bar__content">
@@ -15,12 +18,12 @@ function Bar() {
                       <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
                     </svg>
                   </div>
-                  <div className="track-play__author">
+                  <div className={`track-play__author ${isLoading ? "track-play-loading": ""}`}>
                     <a className="track-play__author-link" href="http://"
                       >Ты та...</a
                     >
                   </div>
-                  <div className="track-play__album">
+                  <div className={`track-play__album ${isLoading ? "track-play-loading": ""}`}>
                     <a className="track-play__album-link" href="http://">Баста</a>
                   </div>
                 </div>
@@ -47,4 +50,7 @@ function Bar() {
       </div>
     )
 }
+Bar.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
 export default Bar;

@@ -1,4 +1,6 @@
-function Sidebar() {
+import React from 'react';
+import PropTypes from 'prop-types';
+function Sidebar({isLoading}) {
     return(
         <div className="main__sidebar sidebar">
         <div className="sidebar__personal">
@@ -11,7 +13,7 @@ function Sidebar() {
         </div>
         <div className="sidebar__block">
           <div className="sidebar__list">
-            <div className="sidebar__item">
+            <div className={`sidebar__item ${isLoading ? `sidebar__item-loading` : ``}`}>
               <a className="sidebar__link" href="#">
                 <img
                   className="sidebar__img"
@@ -20,7 +22,7 @@ function Sidebar() {
                 />
               </a>
             </div>
-            <div className="sidebar__item">
+            <div className={`sidebar__item ${isLoading ? `sidebar__item-loading` : ``}`}>
               <a className="sidebar__link" href="#">
                 <img
                   className="sidebar__img"
@@ -29,7 +31,7 @@ function Sidebar() {
                 />
               </a>
             </div>
-            <div className="sidebar__item">
+            <div className={`sidebar__item ${isLoading ? `sidebar__item-loading` : ``}`}>
               <a className="sidebar__link" href="#">
                 <img
                   className="sidebar__img"
@@ -43,4 +45,8 @@ function Sidebar() {
         </div>
     )
 }
+
+Sidebar.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
 export default Sidebar;

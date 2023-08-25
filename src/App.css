@@ -36,6 +36,12 @@ ul li {
   font-style: normal;
 }
 
+@keyframes glowing {
+  0% { background-color: #313131;}
+  50% { background-color: #646464;}
+  100% { background-color: #313131; }
+}
+
 html,
 body {
   width: 100%;
@@ -43,6 +49,7 @@ body {
   font-family: "StratosSkyeng", sans-serif;
   color: #ffffff;
 }
+
 
 .wrapper {
   width: 100%;
@@ -61,8 +68,11 @@ body {
 
 ._btn-text:hover {
   border-color: #d9b6ff;
-  color: #d9b6ff;
   cursor: pointer;
+}
+
+._btn-text:hover > span{
+  color: #d9b6ff;
 }
 
 ._btn-icon:hover svg {
@@ -103,6 +113,7 @@ body {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 
 .main__nav {
   width: 244px;
@@ -146,7 +157,9 @@ body {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
-
+.loading {
+  background-color: #313131;
+}
 .nav__menu {
   display: block;
   visibility: visible;
@@ -297,6 +310,7 @@ body {
 }
 
 .filter__button {
+  position: relative;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -304,6 +318,61 @@ body {
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
+}
+
+.select-modal{
+  position: relative;
+
+}
+.modal-link-box{
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  overflow-y: auto;
+}
+.modal-link-box::-webkit-scrollbar-thumb{
+  background-color: #fff;
+  border-radius: 10px;
+}
+.modal-link-box::-webkit-scrollbar{
+  border-radius: 10px;
+  width: 4px;
+  background-color: #4B4949;
+}
+.modal-link{
+  display: block;
+  font-size: 20px;
+  font-weight: 400;
+}
+.modal-link:hover{
+    text-decoration: underline;
+  color: #B672FF;
+}
+.select-author,
+.select-year,
+.select-genre{
+  display: none;
+  position: absolute;
+  border-radius: 12px;
+  padding: 34px;
+  top: 48px;
+  left: 0;
+  background-color: #313131;
+}
+
+.select-genre{
+  height: 305px;
+  width: 248px;
+}
+.select-author{
+  display: block;
+  width: 248px;
+  height: 305px;
+}
+.select-year{
+  width: 221px;
+  height: 196px;
 }
 
 .filter__button:not(:last-child) {
@@ -602,6 +671,7 @@ body {
 }
 
 .bar__player-block {
+  background-color: #1C1C1C;
   height: 73px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -775,6 +845,7 @@ body {
   fill: transparent;
   stroke: #4e4e4e;
 }
+
 
 .track-play__author {
   grid-row: 1;
@@ -1230,4 +1301,44 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+
+.track__title-text-loading{
+  width: 250px;
+  animation: glowing 1300ms infinite;
+}
+.track__author-loading{
+  width: 300px;
+  margin-right: 21px;
+  animation: glowing 1300ms infinite;
+}
+.track__album-loading{
+  width: 230px;
+  margin-right: 15px;
+  animation: glowing 1300ms infinite;
+}
+.track__title-text-loading > a > span,
+.track__title-text-loading > a,
+.track__author-loading > a,
+.track__album-loading > a{
+  color: transparent;
+}
+.sidebar__item-loading{
+  animation: glowing 1300ms infinite;
+}
+.sidebar__item-loading > a{
+  display: none;
+}
+.track-play-loading{
+  animation: glowing 1300ms infinite;
+}
+.track-play-loading > a{
+  color: transparent;
+}
+.active{
+  border-color: #d9b6ff;
+}
+.active > span{
+  color: #d9b6ff;
 }
