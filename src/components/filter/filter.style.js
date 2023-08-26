@@ -66,8 +66,8 @@ line-height: 24px;
 border: 1px solid #ffffff;
 border-radius: 60px;
 padding: 6px 20px;
-${({ isActive }) =>
-isActive &&
+${({ $isActive }) =>
+$isActive &&
 `
 &> span{
     color: #d9b6ff;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CenterBlockContent from '../CenterBlockContent.js'
+import CenterBlockContent from '../CenterBlockContent/CenterBlockContent.js'
 import Filter from '../filter/filter.js'
 import * as S from './CenterBlock.style.js'
 function CenterBlock({isLoading}) {
@@ -16,7 +16,7 @@ function CenterBlock({isLoading}) {
             name="search"
           />
         </S.CenterBlockSearch>
-        <h2 className="centerblock__h2">Треки</h2>
+        <S.CenterBlockH2>Треки</S.CenterBlockH2>
         <Filter $isLoading={isLoading}/>
         <CenterBlockContent isLoading={isLoading}/>
     </S.MainCenterBlock>

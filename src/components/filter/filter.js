@@ -10,7 +10,7 @@ function Filter() {
         <S.CenterBlockFilter>
           <S.FilterTitle>Искать по:</S.FilterTitle>
           <S.FilterButton 
-            isActive={visibleFilter === 'author'}
+            $isActive={visibleFilter === 'author'}
             className={`_btn-text`} 
             onClick={() =>  setVisibleFilter(visibleFilter === `author` ? '' : 'author') }
             >
@@ -28,7 +28,7 @@ function Filter() {
             </S.SelectAuthor>
           </S.FilterButton>
           <S.FilterButton 
-            isActive={visibleFilter === 'year'}
+            $isActive={visibleFilter === 'year'}
             className={`_btn-text`} 
             onClick={() =>  setVisibleFilter(visibleFilter === `year` ? '' : 'year') }
             >
@@ -42,7 +42,7 @@ function Filter() {
             </S.SelectYear>
           </S.FilterButton>
           <S.FilterButton 
-            isActive={visibleFilter === 'genre'}
+            $isActive={visibleFilter === 'genre'}
             className={`_btn-text`} 
             onClick={() =>  setVisibleFilter(visibleFilter === `genre` ? '' : 'genre') }
             >
