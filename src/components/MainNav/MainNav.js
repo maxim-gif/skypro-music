@@ -1,7 +1,7 @@
 import React from 'react';
 const { useState } = React;
 import * as S from './MainNav.style.js'
-function MainNav() {
+const MainNav = () => {
   const [status, setStatus] = useState(true);
   const handleClick = () => setStatus(!status);
     return(
@@ -31,4 +31,4 @@ function MainNav() {
   )
 }
 
-export default MainNav;
+export  {MainNav};

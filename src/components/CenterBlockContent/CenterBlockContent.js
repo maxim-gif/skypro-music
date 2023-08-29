@@ -5,9 +5,7 @@ import * as S from './CenterBlockContent.style.js'
 
 const trackSvg = `img/icon/sprite.svg`
 
-
-function CenterBlockContent({isLoading}) {
-
+const CenterBlockContent = ({isLoading}) => {
   const tracksHtml = tracks.map((track, ind) => (
     <S.PlaylistItem key={ind}>
     <S.PlaylistTrack>
@@ -55,7 +53,8 @@ function CenterBlockContent({isLoading}) {
         </S.CenterBlockContent>
     )
 }
+
 CenterBlockContent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
 };
-export default CenterBlockContent;
+export { CenterBlockContent };

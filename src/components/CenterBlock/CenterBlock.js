@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CenterBlockContent from '../CenterBlockContent/CenterBlockContent.js'
-import Filter from '../filter/filter.js'
+import {CenterBlockContent} from '../CenterBlockContent/CenterBlockContent.js'
+import {Filter} from '../filter/filter.js'
 import * as S from './CenterBlock.style.js'
-function CenterBlock({isLoading}) {
-    return(
+const CenterBlock = ({isLoading}) => {
+  return(
     <S.MainCenterBlock>
         <S.CenterBlockSearch>
           <S.SearchSvg>
@@ -25,4 +25,4 @@ function CenterBlock({isLoading}) {
 CenterBlock.propTypes = {
   isLoading: PropTypes.bool.isRequired,
 };
-export default CenterBlock;
+export  {CenterBlock};

@@ -1,7 +1,7 @@
-import MainNav from './components/MainNav/MainNav.js'
-import Bar from './components/bar/Bar.js'
-import Sidebar from './components/Sidebar/Sidebar.js'
-import CenterBlock from './components/CenterBlock/CenterBlock.js'
+import {MainNav} from './components/MainNav/MainNav.js'
+import {Bar} from './components/bar/Bar.js'
+import {Sidebar} from './components/Sidebar/Sidebar.js'
+import {CenterBlock} from './components/CenterBlock/CenterBlock.js'
 import { createGlobalStyle } from 'styled-components';
 import * as S from './App.style.js'
 import React from 'react';
@@ -87,11 +87,9 @@ ul li {
   cursor: pointer;
 }
 `;
-
-function App() {
+const App = () => {
 
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -115,7 +113,7 @@ function App() {
        </S.Container>
       </S.Wrapper>
     </div>
-  );
+  ); 
 }
 
 export default App;
