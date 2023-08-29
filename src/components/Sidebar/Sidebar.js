@@ -1,18 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as S from './Sidebar.style.js'
+import {Personal} from '../Personal/Personal.js'
 const Sidebar = ({isLoading}) => {
   return(
     <S.MainSaidBar>
-    <S.SaidBarPersonal>
-      <S.SaidBarPersonalName>Sergey.Ivanov</S.SaidBarPersonalName>
-      <S.SaidBarIcon>
-        <svg alt="logout">
-          <use xlinkHref="img/icon/sprite.svg#logout"></use>
-        </svg>
-      </S.SaidBarIcon>
-    </S.SaidBarPersonal>
-    <S.SaidBarBlock>
+      <Personal/>
+      <S.SaidBarBlock>
       <S.SaidBarList>
         <S.SaidBarItem $isLoading={isLoading}>
           <S.SaidBarLink href="#">
@@ -39,7 +33,7 @@ const Sidebar = ({isLoading}) => {
           </S.SaidBarLink>
         </S.SaidBarItem>
       </S.SaidBarList>
-    </S.SaidBarBlock>
+      </S.SaidBarBlock>
     </S.MainSaidBar>
 ) 
 }
