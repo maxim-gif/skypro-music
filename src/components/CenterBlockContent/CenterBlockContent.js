@@ -5,7 +5,9 @@ import * as S from './CenterBlockContent.style.js'
 
 const trackSvg = `img/icon/sprite.svg`
 
-const CenterBlockContent = ({isLoading}) => {
+const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus}) => {
+
+  console.log(compilationsId, favoritesStatus); //в зависимости от значения будет создан необходимый список
   const tracksHtml = tracks.map((track, ind) => (
     <S.PlaylistItem key={ind}>
     <S.PlaylistTrack>
@@ -56,5 +58,12 @@ const CenterBlockContent = ({isLoading}) => {
 
 CenterBlockContent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
+  favoritesStatus: PropTypes.bool.isRequired,
+  compilationsId: PropTypes.number.isRequired,
+};
+
+CenterBlockContent.defaultProps = {
+  compilationsId: 0,
+  favoritesStatus: false,
 };
 export { CenterBlockContent };

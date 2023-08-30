@@ -37,10 +37,7 @@ flex-direction: column;
 -ms-flex-align: center;
 align-items: center;
 `
-export const SaidBarLink = styled.a`
-width: 100%;
-height: 100%;
-`
+
 export const SaidBarImg = styled.img`
 width: 100%;
 height: auto;

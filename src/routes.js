@@ -7,6 +7,7 @@ import { Compilations } from "./pages/compilations/compilations.js";
 import { Favorites } from "./pages/favorites/favorites.js";
 
 
+
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -14,7 +15,7 @@ export const AppRoutes = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/login" element={<Login />} />
       <Route path="/registration" element={<Registration />} />
-      <Route path="/compilations" element={<Compilations />} />
+      <Route path="/compilations/:id" element={<Compilations />} />
       <Route path="/favorites" element={<Favorites />} />
     </Routes>
   );

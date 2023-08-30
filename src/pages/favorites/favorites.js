@@ -28,7 +28,7 @@ const Favorites = () => {
           <div>
           <Search/>
           <S.CenterBlockH2>Мои треки</S.CenterBlockH2>
-          <CenterBlockContent isLoading={isLoading}/>
+          <CenterBlockContent isLoading={isLoading} favoritesStatus={true}/>
           </div>
           <S.PersonalBlock>
             <Personal/>

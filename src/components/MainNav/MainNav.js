@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 const { useState } = React;
 import * as S from './MainNav.style.js'
 const MainNav = () => {
@@ -17,13 +18,13 @@ const MainNav = () => {
       <S.NavMenu $status={status}>
         <S.MenuList>
           <S.MenuItem>
-            <S.MenuLink href="#">Главное</S.MenuLink>
+          <S.MenuLink as={Link} to="/">Главное</S.MenuLink>
           </S.MenuItem>
           <S.MenuItem>
-            <S.MenuLink href="#">Мой плейлист</S.MenuLink>
+          <S.MenuLink as={Link} to="/favorites">Мой плейлист</S.MenuLink>
           </S.MenuItem>
           <S.MenuItem>
-            <S.MenuLink href="../signin.html">Войти</S.MenuLink>
+          <S.MenuLink as={Link} to="../signin.html">Войти</S.MenuLink>
           </S.MenuItem>
         </S.MenuList>
       </S.NavMenu>

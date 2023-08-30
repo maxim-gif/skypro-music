@@ -5,12 +5,26 @@ import * as S from './compilations.style.js'
 import React from 'react';
 import {CenterBlockContent} from '../../components/CenterBlockContent/CenterBlockContent.js'
 import {Search} from '../../components/search/search.js'
-const { useState, useEffect } = React;
+import { useParams } from "react-router-dom";
 
+const { useState, useEffect } = React;
 
 
 const Compilations = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const params = useParams();
+
+  
+  const getTitle = (id) => {
+    switch(id) {
+      case 1:
+        return "Плейлист дня";
+      case 2:
+        return "100 танцевальных хитов";
+      case 3:
+        return "Инди-заряд";
+    }
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,8 +41,8 @@ const Compilations = () => {
           <MainNav/>
           <div>
           <Search/>
-          <S.CenterBlockH2>Треки</S.CenterBlockH2>
-          <CenterBlockContent isLoading={isLoading}/>
+          <S.CenterBlockH2>{getTitle(Number(params.id))}</S.CenterBlockH2>
+          <CenterBlockContent isLoading={isLoading} compilationsId={Number(params.id)}/>
           </div>
           <S.PersonalBlock>
             <Personal/>

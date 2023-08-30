@@ -1,6 +1,7 @@
 import { AppRoutes } from "./routes";
 import { createGlobalStyle } from 'styled-components';
 
+
 const GlobalStyle = createGlobalStyle`
 html,
 body {
@@ -83,10 +84,11 @@ ul li {
 `;
 
 const App = () => {
+
   return (
     <div>
       <GlobalStyle />
-      <AppRoutes />
+      <AppRoutes/>
     </div>
   );
 };
