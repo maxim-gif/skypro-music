@@ -1,4 +1,5 @@
-import * as S from './NotFound.style.js'  
+import * as S from './NotFound.style.js'
+import { NavLink } from "react-router-dom";   
 export const NotFound = () => {
     return (
       <S.Wrapper>
@@ -9,7 +10,7 @@ export const NotFound = () => {
               <S.SubTitleImg src="img/crying.png" alt=""></S.SubTitleImg>
             </S.SubTitleBox>
             <S.Description>Возможно, она была удалена или перенесена на другой адрес</S.Description>
-            <S.NotFoundButton>Вернуться на главную</S.NotFoundButton>
+            <S.NotFoundLink as={NavLink} to="/">Вернуться на главную</S.NotFoundLink>
         </S.Content>
       </S.Wrapper>
     );

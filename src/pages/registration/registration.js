@@ -1,4 +1,5 @@
 import * as S from './registration.style.js'
+import { Link } from "react-router-dom";
 
 export const Registration = () => {
     return (
@@ -30,7 +31,7 @@ export const Registration = () => {
               placeholder="Повторите пароль"
             />
             <S.ModalButtonRegistration>
-              <a href="../index.html">Зарегистрироваться</a>
+              <Link to="/login">Зарегистрироваться</Link>
             </S.ModalButtonRegistration>
           </S.ModalFormLogin>
         </S.ModalBlock>

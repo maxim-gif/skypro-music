@@ -1,6 +1,8 @@
 import * as S from './login.style.js'
+import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-export const Login = () => {
+export const Login = ({login}) => {
     return (
         <S.Wrapper>
         <S.ContainerEnter>
@@ -24,10 +26,10 @@ export const Login = () => {
                 placeholder="Пароль"
               />
               <S.ModalButtonEnter>
-                <a href="../index.html">Войти</a>
+                <Link to="/" onClick={login}>Войти</Link>
               </S.ModalButtonEnter>
               <S.ModalButtonSignup>
-                <a href="signup.html">Зарегистрироваться</a>
+              <Link to="/registration">Зарегистрироваться</Link>
               </S.ModalButtonSignup>
             </S.ModalFormLogin>
           </S.ModalBlock>
@@ -35,3 +37,7 @@ export const Login = () => {
       </S.Wrapper>
     );
   }
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};

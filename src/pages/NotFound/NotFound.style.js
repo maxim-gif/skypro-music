@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -22,7 +23,7 @@ display: flex;
 align-items: center;
 gap: 8px;
 `
-export const NotFoundButton = styled.button`
+export const NotFoundLink = styled(NavLink)`
 width: 278px;
 height: 58px;
 border-radius: 6px;
@@ -31,6 +32,9 @@ font-size: 18px;
 font-weight: 400;
 color: #FFFFFF;
 border: none;
+display: flex;
+align-items: center;
+justify-content: center;
 `
 export const Title = styled.h1`
 font-size: 160px;

@@ -1,6 +1,7 @@
 import { AppRoutes } from "./routes";
 import { createGlobalStyle } from 'styled-components';
-
+import React from 'react';
+const { useState} = React;
 
 const GlobalStyle = createGlobalStyle`
 html,
@@ -84,11 +85,15 @@ ul li {
 `;
 
 const App = () => {
+  const [user, setUser] = useState({ login: "taradam" });
 
+  const handleLogin = () => setUser({ login: "taradam" });
+
+  const handleLogout = () => setUser(null);
   return (
     <div>
       <GlobalStyle />
-      <AppRoutes/>
+      <AppRoutes user={user} login={handleLogin} logout={handleLogout}/>
     </div>
   );
 };

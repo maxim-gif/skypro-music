@@ -4,12 +4,14 @@ import {Sidebar} from '../../components/Sidebar/Sidebar.js'
 import {CenterBlock} from '../../components/CenterBlock/CenterBlock.js'
 import * as S from './HomePage.style.js'
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 const { useState, useEffect } = React;
 
 
 
-const HomePage = () => {
+const HomePage = ({logout}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const HomePage = () => {
       <S.Wrapper>
        <S.Container>
         <S.Main>
-          <MainNav/>
+          <MainNav logout={logout}/>
           <CenterBlock isLoading={isLoading}/>
           <Sidebar isLoading={isLoading}/>
         </S.Main>
@@ -36,4 +38,7 @@ const HomePage = () => {
   );  
 }
 
+HomePage.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
 export  {HomePage};

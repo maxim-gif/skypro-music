@@ -1,16 +1,16 @@
 import { MainNav } from '../../components/MainNav/MainNav.js'
 import {Bar} from '../../components/bar/Bar.js'
 import {Personal} from '../../components/Personal/Personal.js'
-import * as S from './compilations.style.js'
-import React from 'react';
 import {CenterBlockContent} from '../../components/CenterBlockContent/CenterBlockContent.js'
 import {Search} from '../../components/search/search.js'
 import { useParams } from "react-router-dom";
-
+import * as S from './compilations.style.js'
+import React from 'react';
+import PropTypes from 'prop-types';
 const { useState, useEffect } = React;
 
 
-const Compilations = () => {
+const Compilations = ({logout}) => {
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
 
@@ -38,7 +38,7 @@ const Compilations = () => {
       <S.Wrapper>
        <S.Container>
         <S.Main>
-          <MainNav/>
+          <MainNav logout={logout}/>
           <div>
           <Search/>
           <S.CenterBlockH2>{getTitle(Number(params.id))}</S.CenterBlockH2>
@@ -55,5 +55,9 @@ const Compilations = () => {
     </div>
   );  
 }
+
+Compilations.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
 
 export  {Compilations};

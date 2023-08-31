@@ -5,18 +5,32 @@ import { Login } from "./pages/login/login.js";
 import { Registration } from "./pages/registration/registration.js";
 import { Compilations } from "./pages/compilations/compilations.js";
 import { Favorites } from "./pages/favorites/favorites.js";
+import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.js";
+import PropTypes from 'prop-types';
 
 
-
-export const AppRoutes = () => {
+export const AppRoutes = ({ user, logout, login }) => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+
       <Route path="*" element={<NotFound />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login login={login}/>} />
       <Route path="/registration" element={<Registration />} />
-      <Route path="/compilations/:id" element={<Compilations />} />
-      <Route path="/favorites" element={<Favorites />} />
+
+      <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
+        <Route path="/" element={<HomePage logout={logout}/>} />
+        <Route path="/compilations/:id" element={<Compilations logout={logout}/>} />
+        <Route path="/favorites" element={<Favorites logout={logout}/>} />
+      </Route>
+
     </Routes>
   );
+};
+
+AppRoutes.propTypes = {
+  user: PropTypes.shape({
+    login: PropTypes.string,
+  }),
+  logout: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
