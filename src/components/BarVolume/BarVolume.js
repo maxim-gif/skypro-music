@@ -5,7 +5,7 @@ const BarVolume = () => {
           <S.BarVolumeContent>
             <S.VolumeImage>
               <S.VolumeSvg alt="volume">
-                <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
+                <use xlinkHref="/img/icon/sprite.svg#icon-volume"></use>
               </S.VolumeSvg>
             </S.VolumeImage>
             <S.VolumeProgress className="_btn">

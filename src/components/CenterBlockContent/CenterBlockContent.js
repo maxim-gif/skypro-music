@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {tracks} from '../../tracks.array.js'
 import * as S from './CenterBlockContent.style.js'
 
-const trackSvg = `img/icon/sprite.svg`
+const trackSvg = `/img/icon/sprite.svg`
 
 const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus}) => {
 

@@ -10,7 +10,7 @@ const MainNav = ({logout}) => {
     return(
       <S.MainNav>
       <S.NavLogo>
-        <S.LogoImg src="img/logo.png" alt="logo" />
+        <S.LogoImg src="/img/logo.png" alt="logo" />
       </S.NavLogo>
       <S.NavBurger onClick={handleClick}>
         <S.BurgerLine></S.BurgerLine>
