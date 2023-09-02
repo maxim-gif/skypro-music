@@ -28,9 +28,7 @@ export const AppRoutes = ({ user, logout, login }) => {
 };
 
 AppRoutes.propTypes = {
-  user: PropTypes.shape({
-    login: PropTypes.string,
-  }),
+  user: PropTypes.string,
   logout: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
 };

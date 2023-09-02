@@ -87,9 +87,16 @@ ul li {
 const App = () => {
   const [user, setUser] = useState(null);
 
-  const handleLogin = () => setUser({ login: "taradam" });
+  const handleLogin = () => {
+    window.localStorage.setItem('login', 'ssdds')
+    setUser(window.localStorage.getItem('login'))
+  };
 
-  const handleLogout = () => setUser(null);
+  const handleLogout = () => {
+    window.localStorage.setItem('login', null)
+    setUser( window.localStorage.getItem('login'))
+  };
+
   return (
     <div>
       <GlobalStyle />
