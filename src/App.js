@@ -85,7 +85,7 @@ ul li {
 `;
 
 const App = () => {
-  const [user, setUser] = useState({ login: "taradam" });
+  const [user, setUser] = useState(null);
 
   const handleLogin = () => setUser({ login: "taradam" });
 
