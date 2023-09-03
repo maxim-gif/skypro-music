@@ -85,7 +85,8 @@ ul li {
 `;
 
 const App = () => {
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState(window.localStorage.getItem('login'));
 
   const handleLogin = () => {
     window.localStorage.setItem('login', 'ssdds')
@@ -93,7 +94,7 @@ const App = () => {
   };
 
   const handleLogout = () => {
-    window.localStorage.setItem('login', null)
+    window.localStorage.removeItem('login')
     setUser( window.localStorage.getItem('login'))
   };
 
