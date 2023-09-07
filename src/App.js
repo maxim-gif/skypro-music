@@ -1,11 +1,7 @@
-import {MainNav} from './components/MainNav/MainNav.js'
-import {Bar} from './components/bar/Bar.js'
-import {Sidebar} from './components/Sidebar/Sidebar.js'
-import {CenterBlock} from './components/CenterBlock/CenterBlock.js'
+import { AppRoutes } from "./routes";
 import { createGlobalStyle } from 'styled-components';
-import * as S from './App.style.js'
 import React from 'react';
-const { useState, useEffect } = React;
+const { useState} = React;
 
 const GlobalStyle = createGlobalStyle`
 html,
@@ -87,33 +83,27 @@ ul li {
   cursor: pointer;
 }
 `;
+
 const App = () => {
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(window.localStorage.getItem('login'));
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  const handleLogin = () => {
+    window.localStorage.setItem('login', 'ssdds')
+    setUser(window.localStorage.getItem('login'))
+  };
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('login')
+    setUser( window.localStorage.getItem('login'))
+  };
 
   return (
     <div>
       <GlobalStyle />
-      <S.Wrapper>
-       <S.Container>
-        <S.Main>
-          <MainNav/>
-          <CenterBlock isLoading={isLoading}/>
-          <Sidebar isLoading={isLoading}/>
-        </S.Main>
-        <Bar isLoading={isLoading}/>
-        <footer></footer>
-       </S.Container>
-      </S.Wrapper>
+      <AppRoutes user={user} login={handleLogin} logout={handleLogout}/>
     </div>
-  ); 
-}
+  );
+};
 
-export default App;
+export { App };

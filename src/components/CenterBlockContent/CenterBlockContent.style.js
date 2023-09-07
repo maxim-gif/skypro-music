@@ -231,7 +231,8 @@ display: flex;
 -ms-flex-direction: column;
 flex-direction: column;
 overflow-y: auto;
-max-height: 490px;
+min-height: 490px;
+max-height: 560px;
 &::-webkit-scrollbar {
   width: 0;
   background: transparent;

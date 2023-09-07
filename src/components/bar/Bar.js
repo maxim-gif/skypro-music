@@ -18,7 +18,7 @@ const Bar = ({isLoading}) => {
               <S.TrackPlayContain>
                 <S.TrackPlayImage>
                   <S.TrackPlaySvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </S.TrackPlaySvg>
                 </S.TrackPlayImage>
                 <S.TrackPlayAuthor $isLoading={isLoading}>
@@ -32,13 +32,13 @@ const Bar = ({isLoading}) => {
               <S.TrackPlayLikeDis>
                 <S.TrackPlayLikeAndDis className="_btn-icon">
                   <S.TrackPlayLikeSvg alt="like">
-                    <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                   </S.TrackPlayLikeSvg>
                 </S.TrackPlayLikeAndDis>
                 <S.TrackPlayLikeAndDis className="_btn-icon">
                   <S.TrackPlayDislikeSvg alt="dislike">
                     <use
-                      xlinkHref="img/icon/sprite.svg#icon-dislike"
+                      xlinkHref="/img/icon/sprite.svg#icon-dislike"
                     ></use>
                   </S.TrackPlayDislikeSvg>
                 </S.TrackPlayLikeAndDis>
