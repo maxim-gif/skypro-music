@@ -1,5 +1,6 @@
 import { AppRoutes } from "./routes";
 import { createGlobalStyle } from 'styled-components';
+import { getTracks } from "./api.js";
 import React from 'react';
 const { useState} = React;
 
@@ -86,6 +87,7 @@ ul li {
 
 const App = () => {
 
+  getTracks().then((tracks) => {console.log(tracks);})
   const [user, setUser] = useState(window.localStorage.getItem('login'));
 
   const handleLogin = () => {
