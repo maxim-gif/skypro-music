@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {tracks} from '../../tracks.array.js'
 import * as S from './CenterBlockContent.style.js'
 
 const trackSvg = `/img/icon/sprite.svg`
 
-const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus}) => {
+const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus, tracks, getTrackData}) => {
 
   console.log(compilationsId, favoritesStatus); //в зависимости от значения будет создан необходимый список
-  const tracksHtml = tracks.map((track, ind) => (
-    <S.PlaylistItem key={ind}>
+  const time = (sec) => {
+    const minutes = Math.floor(sec/60)
+    const seconds = sec%60<10?`0${sec%60}`:sec%60
+    return `${minutes}:${seconds}`
+  }
+
+  const tracksHtml = tracks.map((track) => (
+    <S.PlaylistItem key={track.id} onClick={() => getTrackData(track.id)}>
     <S.PlaylistTrack>
       <S.TrackTitle>
         <S.TrackTitleImg>
@@ -18,11 +23,11 @@ const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus}) => {
           </S.TrackTitleSvg>
         </S.TrackTitleImg>
         <S.TrackTitle $isLoading={isLoading}>
-          <S.TrackTitleLink href="{track.titleLink}">{track.title}<S.TrackTitleSpan>{track.subtitle}</S.TrackTitleSpan></S.TrackTitleLink>
+          <S.TrackTitleLink >{track.name}<S.TrackTitleSpan>{track.subtitle}</S.TrackTitleSpan></S.TrackTitleLink>
         </S.TrackTitle>
       </S.TrackTitle>
       <S.TrackAuthor $isLoading={isLoading}>
-        <S.TrackAuthorLink href="{track.authorLink}">{track.author}O</S.TrackAuthorLink>
+        <S.TrackAuthorLink href="{track.authorLink}">{track.author}</S.TrackAuthorLink>
       </S.TrackAuthor>
       <S.TrackAlbum $isLoading={isLoading}>
         <S.TrackAlbumLink href="{track.albumLink}">{track.album}</S.TrackAlbumLink>
@@ -31,7 +36,7 @@ const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus}) => {
         <S.TrackTimeSvg alt="time">
           <use xlinkHref={`${trackSvg}#icon-like`}></use>
         </S.TrackTimeSvg>
-        <S.TrackTimeText>{track.time}</S.TrackTimeText>
+        <S.TrackTimeText>{time(track.duration_in_seconds)}</S.TrackTimeText>
       </div>
     </S.PlaylistTrack>
   </S.PlaylistItem>
@@ -60,6 +65,8 @@ CenterBlockContent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   favoritesStatus: PropTypes.bool.isRequired,
   compilationsId: PropTypes.number.isRequired,
+  tracks: PropTypes.array.isRequired,
+  getTrackData: PropTypes.func.isRequired,
 };
 
 CenterBlockContent.defaultProps = {
