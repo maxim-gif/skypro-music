@@ -4,9 +4,11 @@ import {BarVolume} from '../BarVolume/BarVolume.js'
 import {BarControl} from '../BarControl/BarControl.js'
 import * as S from './Bar.style.js'
 
-const Bar = ({isLoading}) => {
+const Bar = ({isLoading, trackId}) => {
+  const isVisible = !!trackId.id;
+
   return(
-    <S.Bar>
+    <S.Bar $isVisible={isVisible}>
       <S.BarContent>
         <S.BarPlayerProgress></S.BarPlayerProgress>
         <S.BarPlayerBlock>
@@ -22,10 +24,10 @@ const Bar = ({isLoading}) => {
                   </S.TrackPlaySvg>
                 </S.TrackPlayImage>
                 <S.TrackPlayAuthor $isLoading={isLoading}>
-                  <S.TrackPlayAuthorLink href="http://">Ты та...</S.TrackPlayAuthorLink>
+                  <S.TrackPlayAuthorLink href="http://">{trackId.name}</S.TrackPlayAuthorLink>
                 </S.TrackPlayAuthor>
                 <S.TrackPlayAlbum $isLoading={isLoading}>
-                  <S.TrackPlayAlbumLink href="http://">Баста</S.TrackPlayAlbumLink>
+                  <S.TrackPlayAlbumLink href="http://">{trackId.author}</S.TrackPlayAlbumLink>
                 </S.TrackPlayAlbum>
               </S.TrackPlayContain>
 
@@ -54,5 +56,6 @@ const Bar = ({isLoading}) => {
 
 Bar.propTypes = {
   isLoading: PropTypes.bool.isRequired,
+  trackId: PropTypes.object.isRequired,
 };
 export {Bar};

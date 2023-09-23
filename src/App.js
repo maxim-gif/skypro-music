@@ -86,6 +86,7 @@ ul li {
 
 const App = () => {
 
+ 
   const [user, setUser] = useState(window.localStorage.getItem('login'));
 
   const handleLogin = () => {
@@ -101,7 +102,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-      <AppRoutes user={user} login={handleLogin} logout={handleLogout}/>
+      <AppRoutes user={user} login={handleLogin} logout={handleLogout} />
     </div>
   );
 };

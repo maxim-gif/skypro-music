@@ -6,6 +6,7 @@ const glowing = keyframes`
 100% { background-color: #313131; } 
 `
 export const Bar = styled.div`
+display: ${({$isVisible}) => ($isVisible ? "block" : "none")};
 position: absolute;
 bottom: 0;
 left: 0;
@@ -59,7 +60,6 @@ justify-content: flex-start;
 export const PlayerTrackPlay = styled.div`
 display: -webkit-box;
 display: -ms-flexbox;
-display: flex;
 -webkit-box-orient: horizontal;
 -webkit-box-direction: normal;
 -ms-flex-direction: row;
@@ -172,6 +172,3 @@ font-weight: 400;
 font-size: 13px;
 line-height: 24px;
 `
-// export const  = styled.div`
-
-// `
