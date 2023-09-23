@@ -5,7 +5,6 @@ import * as S from './CenterBlockContent.style.js'
 const trackSvg = `/img/icon/sprite.svg`
 
 const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus, tracks, getTrackData}) => {
-
   console.log(compilationsId, favoritesStatus); //в зависимости от значения будет создан необходимый список
   const time = (sec) => {
     const minutes = Math.floor(sec/60)
@@ -23,14 +22,14 @@ const CenterBlockContent = ({isLoading, compilationsId, favoritesStatus, tracks,
           </S.TrackTitleSvg>
         </S.TrackTitleImg>
         <S.TrackTitle $isLoading={isLoading}>
-          <S.TrackTitleLink >{track.name}<S.TrackTitleSpan>{track.subtitle}</S.TrackTitleSpan></S.TrackTitleLink>
+          <S.TrackTitleLink>{track.name}<S.TrackTitleSpan>{track.subtitle}</S.TrackTitleSpan></S.TrackTitleLink>
         </S.TrackTitle>
       </S.TrackTitle>
       <S.TrackAuthor $isLoading={isLoading}>
-        <S.TrackAuthorLink href="{track.authorLink}">{track.author}</S.TrackAuthorLink>
+        <S.TrackAuthorLink>{track.author}</S.TrackAuthorLink>
       </S.TrackAuthor>
       <S.TrackAlbum $isLoading={isLoading}>
-        <S.TrackAlbumLink href="{track.albumLink}">{track.album}</S.TrackAlbumLink>
+        <S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
       </S.TrackAlbum>
       <div>
         <S.TrackTimeSvg alt="time">
