@@ -1,7 +1,8 @@
 import { AppRoutes } from "./routes";
 import { createGlobalStyle } from 'styled-components';
 import React from 'react';
-const { useState} = React;
+import { AuthProvider } from '../src/context/authContext.js';
+
 
 const GlobalStyle = createGlobalStyle`
 html,
@@ -85,25 +86,13 @@ ul li {
 `;
 
 const App = () => {
-
- 
-  const [user, setUser] = useState(window.localStorage.getItem('login'));
-
-  const handleLogin = () => {
-    window.localStorage.setItem('login', 'ssdds')
-    setUser(window.localStorage.getItem('login'))
-  };
-
-  const handleLogout = () => {
-    window.localStorage.removeItem('login')
-    setUser( window.localStorage.getItem('login'))
-  };
-
   return (
-    <div>
-      <GlobalStyle />
-      <AppRoutes user={user} login={handleLogin} logout={handleLogout} />
-    </div>
+    <AuthProvider>
+      <>
+        <GlobalStyle />
+        <AppRoutes/>
+      </>
+    </AuthProvider>
   );
 };
 

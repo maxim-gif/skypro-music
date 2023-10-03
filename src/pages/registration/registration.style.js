@@ -46,6 +46,15 @@ background-color: transparent;
   height: auto;
 }
 `
+export const Error = styled.div`
+  color: coral;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 20px;
+  text-align: left;
+`
+
 export const ModalInput = styled.input`
 width: 100%;
 border-top: none;

@@ -1,7 +1,37 @@
 import * as S from './registration.style.js'
-import { Link } from "react-router-dom";
+import { Link, useNavigate   } from "react-router-dom";
+import { useEffect, useState, useContext  } from "react";
+import { createUser } from "../../api/user.js";
+import { AuthContext } from '../../context/authContext.js';
 
 export const Registration = () => {
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState(null);
+
+  const { setEmail, setPassword, email, password } = useContext(AuthContext);
+
+
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  useEffect(() => {
+    setError(null);
+  }, [email, password, repeatPassword]);
+
+  const handleRegister = async () => {
+    if (password === repeatPassword) {
+      createUser(email, password).then((response) => {response.status === 201 ? navigate('/login'):console.log("object");});
+      
+  } else {
+      setError("Неизвестная ошибка регистрации");
+  }
+
+    console.log(email);
+    console.log(password);
+    console.log(repeatPassword);
+  };
+
     return (
     <S.Wrapper>
       <S.ContainerRegistration>
@@ -13,25 +43,35 @@ export const Registration = () => {
               </S.ModalLogo>
             </a>
             <S.ModalInput
-              className="login"
-              type="text"
-              name="login"
-              placeholder="Почта"
+                type="text"
+                name="login"
+                placeholder="Почта"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
             />
             <S.ModalInput
-              className="password-first"
-              type="password"
-              name="password"
-              placeholder="Пароль"
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
             />
             <S.ModalInput
-              className="password-double"
-              type="password"
-              name="password"
-              placeholder="Повторите пароль"
+                type="password"
+                name="repeat-password"
+                placeholder="Повторите пароль"
+                value={repeatPassword}
+                onChange={(event) => {
+                  setRepeatPassword(event.target.value);
+                }}
             />
-            <S.ModalButtonRegistration>
-              <Link to="/login">Зарегистрироваться</Link>
+            {error && <S.Error>{error}</S.Error>}
+            <S.ModalButtonRegistration onClick={handleRegister}>
+              <Link>Зарегистрироваться</Link>
             </S.ModalButtonRegistration>
           </S.ModalFormLogin>
         </S.ModalBlock>

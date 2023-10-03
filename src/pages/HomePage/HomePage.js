@@ -4,8 +4,7 @@ import {Sidebar} from '../../components/Sidebar/Sidebar.js'
 import {CenterBlock} from '../../components/CenterBlock/CenterBlock.js'
 import * as S from './HomePage.style.js'
 import React from 'react';
-import PropTypes from 'prop-types';
-import { getTracks } from "../../api.js";
+import { getTracks } from "../../api/track.js";
 import {tracksArr} from '../../tracks.array.js'
 
 
@@ -13,7 +12,7 @@ const { useState, useEffect } = React;
 
 
 
-const HomePage = ({logout}) => {
+const HomePage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState(tracksArr);
@@ -38,7 +37,7 @@ const HomePage = ({logout}) => {
       <S.Wrapper>
        <S.Container>
         <S.Main>
-          <MainNav logout={logout}/>
+          <MainNav/>
           <CenterBlock isLoading={isLoading} tracks={tracks} getTrackData={getTrackData}/>
           <Sidebar isLoading={isLoading}/>
         </S.Main>
@@ -50,7 +49,5 @@ const HomePage = ({logout}) => {
   );  
 }
 
-HomePage.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
+
 export  {HomePage};

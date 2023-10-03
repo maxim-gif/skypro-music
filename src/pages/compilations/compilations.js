@@ -6,11 +6,10 @@ import {Search} from '../../components/search/search.js'
 import { useParams } from "react-router-dom";
 import * as S from './compilations.style.js'
 import React from 'react';
-import PropTypes from 'prop-types';
 const { useState, useEffect } = React;
 
 
-const Compilations = ({logout}) => {
+const Compilations = () => {
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
 
@@ -38,7 +37,7 @@ const Compilations = ({logout}) => {
       <S.Wrapper>
        <S.Container>
         <S.Main>
-          <MainNav logout={logout}/>
+          <MainNav />
           <div>
           <Search/>
           <S.CenterBlockH2>{getTitle(Number(params.id))}</S.CenterBlockH2>
@@ -56,8 +55,6 @@ const Compilations = ({logout}) => {
   );  
 }
 
-Compilations.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
+
 
 export  {Compilations};
