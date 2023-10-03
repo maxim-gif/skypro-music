@@ -20,16 +20,28 @@ export const Registration = () => {
   }, [email, password, repeatPassword]);
 
   const handleRegister = async () => {
-    if (password === repeatPassword) {
-      createUser(email, password).then((response) => {response.status === 201 ? navigate('/login'):console.log("object");});
-      
-  } else {
-      setError("Неизвестная ошибка регистрации");
-  }
 
-    console.log(email);
-    console.log(password);
-    console.log(repeatPassword);
+    const emailPattern = /^[\w.@+-]+$/;
+  
+    if (!email || !password) {
+      setError("Укажите почту/пароль")
+      return; 
+    }
+    if (!emailPattern.test(email)) {
+      setError("Неверный формат email");  
+      return; 
+    }
+    if (!(password === repeatPassword)) {
+      setError("Пароли не совпадают");
+      return; 
+    }
+    if (password === repeatPassword) {
+      createUser(email, password).then((response) => {response.status === 201 ? navigate('/login'):setError("Неизвестная ошибка регистрации");}); 
+    } 
+  
+    // console.log(email);
+    // console.log(password);
+    // console.log(repeatPassword);
   };
 
     return (

@@ -1,16 +1,36 @@
 import * as S from './login.style.js'
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/user.js";
-import { useContext  } from "react";
+import { useContext, useState, useEffect  } from "react";
 import { AuthContext } from '../../context/authContext.js';
 
 
 export const Login = () => {
+  
+
+  const [error, setError] = useState(null);
+  const emailPattern = /^[\w.@+-]+$/;
+
 
   const { setEmail, setPassword, email, password, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setError(null);
+  }, [email, password]);
+
   const enter = () => {
+
+    if (!email || !password) {
+      setError("Укажите почту/пароль")
+      return; 
+    }
+
+    if (!emailPattern.test(email)) {
+      setError("Неверный формат email");  
+      return; 
+    }
+
     loginUser(email, password)
       .then((response) => {
         if (response.status === 200) {
@@ -21,8 +41,8 @@ export const Login = () => {
       })
       .then((data) => {
         setUser(data);
+        localStorage.setItem('user', JSON.stringify(data));
         navigate('/'); 
-        localStorage.setItem('user', data.id);
       })
       .catch((error) => {
         console.log(error);
@@ -56,6 +76,7 @@ export const Login = () => {
                   setPassword(event.target.value);
                 }}
               />
+              {error && <S.Error>{error}</S.Error>}
               <S.ModalButtonEnter  onClick={enter}>
                 <Link>Войти</Link>
               </S.ModalButtonEnter>

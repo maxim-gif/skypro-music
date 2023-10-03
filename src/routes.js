@@ -13,21 +13,22 @@ import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.js";
 export const AppRoutes = () => {
 
   
-  const userID = localStorage.getItem('user');
+  let user = localStorage.getItem('user')
+  user = JSON.parse(user)
   return (
 
       <Routes>
 
-        <Route path="*" element={<NotFound />} />
+
         <Route path="/login" element={<Login/>} />
         <Route path="/registration" element={<Registration />} />
 
-        <Route element={<ProtectedRoute isAllowed={Boolean(userID)} />}>
+        <Route element={<ProtectedRoute isAllowed={Boolean(user && user.id)} />}>
           <Route path="/" element={<HomePage/>} />
           <Route path="/compilations/:id" element={<Compilations/>} />
           <Route path="/favorites" element={<Favorites/>} />
         </Route>
-
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
   );

@@ -94,6 +94,15 @@ justify-content: center;
     background-color: #d9d9d9;
   }
 `
+export const Error = styled.div`
+  color: coral;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 20px;
+  text-align: left;
+`
+
 export const ModalButtonEnter = styled.button`
 width: 278px;
 height: 52px;
