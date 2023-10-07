@@ -6,29 +6,27 @@ import { Registration } from "./pages/registration/registration.js";
 import { Compilations } from "./pages/compilations/compilations.js";
 import { Favorites } from "./pages/favorites/favorites.js";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.js";
+import { AuthContext } from '../src/context/authContext.js';
+import { useContext } from "react";
 
 
 
 
 export const AppRoutes = () => {
 
+  const { user } = useContext(AuthContext);
   
-  let user = localStorage.getItem('user')
-  user = JSON.parse(user)
   return (
 
       <Routes>
-
-
         <Route path="/login" element={<Login/>} />
         <Route path="/registration" element={<Registration />} />
-
-        <Route element={<ProtectedRoute isAllowed={Boolean(user && user.id)} />}>
+        <Route path="*" element={<NotFound />} />
+        <Route element={<ProtectedRoute isAllowed={user ? Boolean(user.id) : false} />}>
           <Route path="/" element={<HomePage/>} />
           <Route path="/compilations/:id" element={<Compilations/>} />
           <Route path="/favorites" element={<Favorites/>} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Routes>
 
   );

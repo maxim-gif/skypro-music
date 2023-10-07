@@ -6,20 +6,18 @@ import { AuthContext } from '../../context/authContext.js';
 
 
 export const Login = () => {
-  
-
-  const [error, setError] = useState(null);
-  const emailPattern = /^[\w.@+-]+$/;
-
-
-  const { setEmail, setPassword, email, password, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const emailPattern = /^[\w.@+-]+$/;
+  const [dataLoading, setDataLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { setEmail, setPassword, email, password, setUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    setError(null);
-  }, [email, password]);
 
-  const enter = () => {
+  useEffect(() => setError(null), [email, password]);
+
+
+  const enter = async () => {
+
 
     if (!email || !password) {
       setError("Укажите почту/пароль")
@@ -31,22 +29,23 @@ export const Login = () => {
       return; 
     }
 
-    loginUser(email, password)
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json()
-        } else {
-          throw new Error('Unauthorized');
-        }
-      })
-      .then((data) => {
-        setUser(data);
-        localStorage.setItem('user', JSON.stringify(data));
-        navigate('/'); 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      setDataLoading(true);
+      const response = await loginUser(email, password);
+      if (response.status !== 200) {
+        setError('Пользователь с таким email или паролем не найден');
+        return;
+      }
+      const data = await response.json();
+      setUser(data);
+      localStorage.setItem('user', JSON.stringify(data));
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setDataLoading(false);
+    }
+
     }
     return (
         <S.Wrapper>
@@ -77,8 +76,8 @@ export const Login = () => {
                 }}
               />
               {error && <S.Error>{error}</S.Error>}
-              <S.ModalButtonEnter  onClick={enter}>
-                <Link>Войти</Link>
+              <S.ModalButtonEnter  onClick={enter} disabled={dataLoading}>
+                {dataLoading ? 'Загрузка...' : 'Войти'}
               </S.ModalButtonEnter>
               <S.ModalButtonSignup>
               <Link to="/registration">Зарегистрироваться</Link>

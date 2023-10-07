@@ -1,5 +1,5 @@
 import * as S from './registration.style.js'
-import { Link, useNavigate   } from "react-router-dom";
+import { useNavigate   } from "react-router-dom";
 import { useEffect, useState, useContext  } from "react";
 import { createUser } from "../../api/user.js";
 import { AuthContext } from '../../context/authContext.js';
@@ -9,6 +9,7 @@ export const Registration = () => {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
+  const [dataLoading, setDataLoading] = useState(false);
 
   const { setEmail, setPassword, email, password } = useContext(AuthContext);
 
@@ -35,13 +36,25 @@ export const Registration = () => {
       setError("Пароли не совпадают");
       return; 
     }
+    if (password.length < 8) {
+      setError("Введённый пароль слишком короткий. Он должен содержать как минимум 8 символов")
+      return; 
+    }
+    
     if (password === repeatPassword) {
-      createUser(email, password).then((response) => {response.status === 201 ? navigate('/login'):setError("Неизвестная ошибка регистрации");}); 
+      setDataLoading(true);
+      createUser(email, password).then(async (response) => {
+        if(response.status === 201 ){
+          navigate('/login');
+          setDataLoading(false);
+        } else if(response.status === 400) {
+          const data = await response.json();
+          setError(data.email[0]);
+          setDataLoading(false);
+        }
+    });
     } 
-  
-    // console.log(email);
-    // console.log(password);
-    // console.log(repeatPassword);
+
   };
 
     return (
@@ -82,8 +95,8 @@ export const Registration = () => {
                 }}
             />
             {error && <S.Error>{error}</S.Error>}
-            <S.ModalButtonRegistration onClick={handleRegister}>
-              <Link>Зарегистрироваться</Link>
+            <S.ModalButtonRegistration onClick={handleRegister} disabled={dataLoading}>
+              {dataLoading ? 'Загрузка...' : 'Зарегестрироваться'}
             </S.ModalButtonRegistration>
           </S.ModalFormLogin>
         </S.ModalBlock>

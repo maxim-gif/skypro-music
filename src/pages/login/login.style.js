@@ -99,7 +99,6 @@ export const Error = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
-  margin-top: 20px;
   text-align: left;
 `
 
@@ -120,6 +119,10 @@ align-items: center;
 -webkit-box-pack: center;
 -ms-flex-pack: center;
 justify-content: center;
+font-size: 18px;
+line-height: 24px;
+font-weight: 400;
+color: #ffffff;
 & > a {
     width: 100%;
     height: 100%;
@@ -144,6 +147,9 @@ justify-content: center;
   }
 &:active {
     background-color: #271a58;
+  }
+&:disabled {
+    background-color: grey;
   }
 `
 export const ModalInput = styled.input`
