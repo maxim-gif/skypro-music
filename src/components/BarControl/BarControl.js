@@ -1,11 +1,24 @@
 import * as S from './BarControl.style.js'
 import PropTypes from 'prop-types'
-const BarControl = ({ play, isPlaying, changeLoop, loop }) => {
+import { useDispatch } from "react-redux";
+import {switchNextTrack, shakeTrack} from '../../Store/actions/creators/track.js';
+
+const BarControl = ({ play, isPlaying, changeLoop, loop, shuffle, toggleShuffle, handleSwitchPreviousTrack}) => {
+
+
+    const dispatch = useDispatch();
+
+    const handleSwitchNextTrack = () => {
+        dispatch(switchNextTrack());
+      }
+
+      const handleShakeTrack = () => {
+        dispatch(shakeTrack());
+      }
+
     return (
         <S.PlayerControl>
-            <S.PlayerBtnPrev
-                onClick={() => alert('данная функция еще не реализована')}
-            >
+            <S.PlayerBtnPrev onClick={handleSwitchPreviousTrack}>
                 <S.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
                 </S.PlayerBtnPrevSvg>
@@ -23,9 +36,7 @@ const BarControl = ({ play, isPlaying, changeLoop, loop }) => {
                     )}
                 </S.PlayerBtnPlaySvg>
             </S.PlayerBtnPlay>
-            <S.PlayerBtnNext
-                onClick={() => alert('данная функция еще не реализована')}
-            >
+            <S.PlayerBtnNext onClick={handleSwitchNextTrack}>
                 <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
                 </S.PlayerBtnNextSvg>
@@ -47,12 +58,17 @@ const BarControl = ({ play, isPlaying, changeLoop, loop }) => {
                     )}
                 </S.PlayerBtnRepeatSvg>
             </S.PlayerBtnRepeat>
-            <S.PlayerBtnShuffle
-                className="_btn-icon"
-                onClick={() => alert('данная функция еще не реализована')}
-            >
+            <S.PlayerBtnShuffle className="_btn-icon" onClick={() => {handleShakeTrack();  toggleShuffle()}}>
                 <S.PlayerBtnShuffleSvg alt="shuffle">
-                    <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
+                {shuffle ? (
+                        <image
+                            xlinkHref="/img/icon/shake-active.png"
+                            width="100%"
+                            height="100%"
+                        />
+                    ) : (
+                        <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
+                    )}
                 </S.PlayerBtnShuffleSvg>
             </S.PlayerBtnShuffle>
         </S.PlayerControl>
@@ -63,5 +79,9 @@ BarControl.propTypes = {
     isPlaying: PropTypes.bool.isRequired,
     loop: PropTypes.bool.isRequired,
     changeLoop: PropTypes.func.isRequired,
+    shuffle: PropTypes.bool.isRequired,
+    toggleShuffle: PropTypes.func.isRequired,
+    handleSwitchPreviousTrack: PropTypes.func.isRequired,
+
 }
 export { BarControl }

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import musicAppReducer from "./reducers/music_app.js";
+import trackReducer from "./reducers/track.js";
 
 export const store = configureStore({
   reducer: {
-    musicApp: musicAppReducer,
+    playerControl: trackReducer,
   }
 });

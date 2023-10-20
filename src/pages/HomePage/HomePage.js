@@ -6,17 +6,20 @@ import * as S from './HomePage.style.js'
 import React from 'react'
 import { getTracks } from '../../api/track.js'
 import { tracksArr } from '../../tracks.array.js'
+import { useDispatch } from "react-redux";
+import {setTrack, setTrackArr} from '../../Store/actions/creators/track.js';
 
 const { useState, useEffect } = React
 
 const HomePage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [tracks, setTracks] = useState(tracksArr)
-    const [trackId, setTracksId] = useState({})
 
+    const dispatch = useDispatch();
     const getTrackData = (key) => {
         const result = tracks.findIndex((item) => item.id === key)
-        setTracksId(tracks[result])
+        dispatch(setTrack(tracks[result]))
+        dispatch(setTrackArr(tracks))
     }
 
     useEffect(() => {
@@ -39,7 +42,7 @@ const HomePage = () => {
                         />
                         <Sidebar isLoading={isLoading} />
                     </S.Main>
-                    <Bar isLoading={isLoading} trackId={trackId} />
+                    <Bar isLoading={isLoading}  />
                     <footer></footer>
                 </S.Container>
             </S.Wrapper>

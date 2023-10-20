@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './CenterBlockContent.style.js'
+import { useSelector } from "react-redux";
+import { statusPlayingSelector } from "../../Store/selectors/track.js";
 
 const trackSvg = `/img/icon/sprite.svg`
 
@@ -11,13 +13,14 @@ const CenterBlockContent = ({
     tracks,
     getTrackData,
 }) => {
+    let isPlaying = useSelector(statusPlayingSelector);
     console.log(compilationsId, favoritesStatus) //в зависимости от значения будет создан необходимый список
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)
         const seconds = sec % 60 < 10 ? `0${sec % 60}` : sec % 60
         return `${minutes}:${seconds}`
     }
-
+console.log(isPlaying);
     const tracksHtml = tracks.map((track) => (
         <S.PlaylistItem key={track.id} onClick={() => getTrackData(track.id)}>
             <S.PlaylistTrack>
