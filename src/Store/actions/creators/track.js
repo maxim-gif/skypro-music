@@ -7,15 +7,12 @@ import {
     SET_STATUS_PLAY,
 } from '../types/track.js'
 
-
-
 export const switchNextTrack = () => ({
     type: SWITCH_NEXT_TRACK,
 })
 
 export const switchPreviousTrack = () => ({
     type: SWITCH_PREVIOUS_TRACK,
-
 })
 
 export const shakeTrack = () => ({
@@ -23,19 +20,19 @@ export const shakeTrack = () => ({
 })
 
 export const setTrack = (tracks) => ({
-  type: SET_TRACK,
-  payload: {
-    tracks, 
-  },
+    type: SET_TRACK,
+    payload: {
+        tracks,
+    },
 })
 
 export const setTrackArr = (tracks) => ({
-  type: SET_TRACK_ARR,
-  payload: {
-    tracks, 
-  },
+    type: SET_TRACK_ARR,
+    payload: {
+        tracks,
+    },
 })
 
-export const setStatusPlay= () => ({
-  type: SET_STATUS_PLAY,
+export const setStatusPlay = () => ({
+    type: SET_STATUS_PLAY,
 })

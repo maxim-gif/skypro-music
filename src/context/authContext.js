@@ -6,13 +6,13 @@ export const exit = () => {
     localStorage.removeItem('user')
 }
 export const AuthProvider = ({ children }) => {
-    let storedData = localStorage.getItem('user');
-    let currentUser;
-  
+    let storedData = localStorage.getItem('user')
+    let currentUser
+
     try {
-      currentUser = storedData ? JSON.parse(storedData) : null;
+        currentUser = storedData ? JSON.parse(storedData) : null
     } catch (error) {
-      currentUser = null;
+        currentUser = null
     }
 
     const [email, setEmail] = useState('')

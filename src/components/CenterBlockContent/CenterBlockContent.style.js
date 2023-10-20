@@ -10,22 +10,22 @@ const glowingAnimation = css`
 `
 
 const blinkAnimation = keyframes`
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 `
 export const BlinkingDot = styled.div`
-  width: 150px;
-  height: 15px; 
-  background-color: purple;
-  border-radius: 50%;
-  animation: ${blinkAnimation} 1s infinite;
+    width: 150px;
+    height: 15px;
+    background-color: purple;
+    border-radius: 50%;
+`
+export const BlinkingDotAnimation = styled.div`
+    width: 150px;
+    height: 15px;
+    background-color: purple;
+    border-radius: 50%;
+    animation: ${blinkAnimation} 1s infinite;
 `
 
 export const PlaylistItem = styled.div`

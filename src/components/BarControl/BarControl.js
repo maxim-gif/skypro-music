@@ -1,20 +1,29 @@
 import * as S from './BarControl.style.js'
 import PropTypes from 'prop-types'
-import { useDispatch } from "react-redux";
-import {switchNextTrack, shakeTrack} from '../../Store/actions/creators/track.js';
+import { useDispatch } from 'react-redux'
+import {
+    switchNextTrack,
+    shakeTrack,
+} from '../../Store/actions/creators/track.js'
 
-const BarControl = ({ play, isPlaying, changeLoop, loop, shuffle, toggleShuffle, handleSwitchPreviousTrack}) => {
-
-
-    const dispatch = useDispatch();
+const BarControl = ({
+    play,
+    isPlaying,
+    changeLoop,
+    loop,
+    shuffle,
+    toggleShuffle,
+    handleSwitchPreviousTrack,
+}) => {
+    const dispatch = useDispatch()
 
     const handleSwitchNextTrack = () => {
-        dispatch(switchNextTrack());
-      }
+        dispatch(switchNextTrack())
+    }
 
-      const handleShakeTrack = () => {
-        dispatch(shakeTrack());
-      }
+    const handleShakeTrack = () => {
+        dispatch(shakeTrack())
+    }
 
     return (
         <S.PlayerControl>
@@ -58,9 +67,15 @@ const BarControl = ({ play, isPlaying, changeLoop, loop, shuffle, toggleShuffle,
                     )}
                 </S.PlayerBtnRepeatSvg>
             </S.PlayerBtnRepeat>
-            <S.PlayerBtnShuffle className="_btn-icon" onClick={() => {handleShakeTrack();  toggleShuffle()}}>
+            <S.PlayerBtnShuffle
+                className="_btn-icon"
+                onClick={() => {
+                    handleShakeTrack()
+                    toggleShuffle()
+                }}
+            >
                 <S.PlayerBtnShuffleSvg alt="shuffle">
-                {shuffle ? (
+                    {shuffle ? (
                         <image
                             xlinkHref="/img/icon/shake-active.png"
                             width="100%"
@@ -82,6 +97,5 @@ BarControl.propTypes = {
     shuffle: PropTypes.bool.isRequired,
     toggleShuffle: PropTypes.func.isRequired,
     handleSwitchPreviousTrack: PropTypes.func.isRequired,
-
 }
 export { BarControl }

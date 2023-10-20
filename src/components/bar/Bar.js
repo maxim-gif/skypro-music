@@ -4,14 +4,17 @@ import { BarVolume } from '../BarVolume/BarVolume.js'
 import { BarControl } from '../BarControl/BarControl.js'
 import { useRef, useState, useEffect } from 'react'
 import * as S from './Bar.style.js'
-import { useSelector } from "react-redux";
-import { currentTrackSelector } from "../../Store/selectors/track.js";
-import { useDispatch } from "react-redux";
-import {switchNextTrack, switchPreviousTrack, setStatusPlay} from '../../Store/actions/creators/track.js';
-
+import { useSelector } from 'react-redux'
+import { currentTrackSelector } from '../../Store/selectors/track.js'
+import { useDispatch } from 'react-redux'
+import {
+    switchNextTrack,
+    switchPreviousTrack,
+    setStatusPlay,
+} from '../../Store/actions/creators/track.js'
 
 const Bar = ({ isLoading }) => {
-    let trackId = useSelector(currentTrackSelector);
+    let trackId = useSelector(currentTrackSelector)
     const isVisible = !!trackId.id
 
     const [duration, setDuration] = useState(0)
@@ -22,20 +25,20 @@ const Bar = ({ isLoading }) => {
     const [shuffle, setShuffle] = useState(false)
 
     const audioRef = useRef(null)
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const handleSwitchNextTrack = () => {
-        dispatch(switchNextTrack());
-      }
+        dispatch(switchNextTrack())
+    }
 
-      const handleSwitchPreviousTrack = () => {
-        if (currentTime > 5) { 
-            setCurrentTime(0);
-            audioRef.current.currentTime = 0; 
+    const handleSwitchPreviousTrack = () => {
+        if (currentTime > 5) {
+            setCurrentTime(0)
+            audioRef.current.currentTime = 0
         } else {
-            dispatch(switchPreviousTrack()); 
+            dispatch(switchPreviousTrack())
         }
-      }
+    }
 
     const handleStart = () => {
         audioRef.current.play()
@@ -52,7 +55,9 @@ const Bar = ({ isLoading }) => {
         setLoop(!loop)
     }
 
-    const toggleShuffle = () => {setShuffle(!shuffle)}
+    const toggleShuffle = () => {
+        setShuffle(!shuffle)
+    }
 
     const togglePlay = () => {
         if (isPlaying) {
@@ -70,14 +75,17 @@ const Bar = ({ isLoading }) => {
                 setDuration(audioRef.current.duration)
                 handleStart()
             })
-            audioRef.current.addEventListener('ended', handleSwitchNextTrack);
+            audioRef.current.addEventListener('ended', handleSwitchNextTrack)
         }
         audioRef.current.src = trackId.track_file
         audioRef.current.volume = currentVolume / 100
 
         return () => {
-            if(audioRef.current){
-                audioRef.current.removeEventListener('ended', handleSwitchNextTrack);
+            if (audioRef.current) {
+                audioRef.current.removeEventListener(
+                    'ended',
+                    handleSwitchNextTrack,
+                )
             }
         }
     }, [trackId])
@@ -145,7 +153,9 @@ const Bar = ({ isLoading }) => {
                                 loop={loop}
                                 toggleShuffle={toggleShuffle}
                                 shuffle={shuffle}
-                                handleSwitchPreviousTrack={handleSwitchPreviousTrack}
+                                handleSwitchPreviousTrack={
+                                    handleSwitchPreviousTrack
+                                }
                             />
 
                             <S.PlayerTrackPlay>

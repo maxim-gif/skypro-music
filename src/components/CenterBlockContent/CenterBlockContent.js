@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './CenterBlockContent.style.js'
-import { useSelector } from "react-redux";
-import { statusPlayingSelector } from "../../Store/selectors/track.js";
+import { useSelector } from 'react-redux'
+import {
+    statusPlayingSelector,
+    currentTrackSelector,
+} from '../../Store/selectors/track.js'
 
 const trackSvg = `/img/icon/sprite.svg`
 
@@ -13,22 +16,31 @@ const CenterBlockContent = ({
     tracks,
     getTrackData,
 }) => {
-    let isPlaying = useSelector(statusPlayingSelector);
+    let isPlaying = useSelector(statusPlayingSelector)
+    let currentlyTrack = useSelector(currentTrackSelector)
     console.log(compilationsId, favoritesStatus) //в зависимости от значения будет создан необходимый список
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)
         const seconds = sec % 60 < 10 ? `0${sec % 60}` : sec % 60
         return `${minutes}:${seconds}`
     }
-console.log(isPlaying);
+    console.log(isPlaying)
     const tracksHtml = tracks.map((track) => (
         <S.PlaylistItem key={track.id} onClick={() => getTrackData(track.id)}>
             <S.PlaylistTrack>
                 <S.TrackTitle>
                     <S.TrackTitleImg>
-                        <S.TrackTitleSvg alt="music">
-                            <use xlinkHref={`${trackSvg}#icon-note`}></use>
-                        </S.TrackTitleSvg>
+                        {currentlyTrack.id === track.id ? (
+                            isPlaying ? (
+                                <S.BlinkingDotAnimation></S.BlinkingDotAnimation>
+                            ) : (
+                                <S.BlinkingDot></S.BlinkingDot>
+                            )
+                        ) : (
+                            <S.TrackTitleSvg alt="music">
+                                <use xlinkHref={`${trackSvg}#icon-note`}></use>
+                            </S.TrackTitleSvg>
+                        )}
                     </S.TrackTitleImg>
                     <S.TrackTitle $isLoading={isLoading}>
                         <S.TrackTitleLink>
