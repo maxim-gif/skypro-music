@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-const { useState } = React;
+const { useState, useContext } = React;
 import * as S from './MainNav.style.js'
+import { AuthContext } from '../../context/authContext.js';
 
-const MainNav = ({logout}) => {
+const MainNav = () => {
+  const { exit } = useContext(AuthContext);
   const [status, setStatus] = useState(true);
   const handleClick = () => setStatus(!status);
     return(
@@ -26,14 +27,12 @@ const MainNav = ({logout}) => {
           <S.MenuLink as={Link} to="/favorites">Мой плейлист</S.MenuLink>
           </S.MenuItem>
           <S.MenuItem>
-          <S.MenuLink as={Link} to="/login" onClick={logout}>Выйти</S.MenuLink>
+          <S.MenuLink as={Link} to="/login" onClick={exit}>Выйти</S.MenuLink>
           </S.MenuItem>
         </S.MenuList>
       </S.NavMenu>
     </S.MainNav>
   )
 }
-MainNav.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
+
 export  {MainNav};

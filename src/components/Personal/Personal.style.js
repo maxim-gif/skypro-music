@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
 
 export const SaidBarPersonal = styled.div`
 display: -webkit-box;
@@ -24,7 +25,7 @@ line-height: 24px;
 color: #ffffff;
 margin-right: 16px;
 `
-export const SaidBarIcon = styled.div`
+export const SaidBarIcon = styled(Link)`
 width: 43px;
 height: 43px;
 background-color: #313131;

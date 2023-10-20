@@ -52,7 +52,9 @@ const Bar = ({isLoading, trackId}) => {
         audioRef.current.addEventListener('timeupdate', onTimeUpdate);
     
         return () => {
-          audioRef.current.removeEventListener('timeupdate', onTimeUpdate);
+          if (audioRef.current) {
+            audioRef.current.removeEventListener('timeupdate', onTimeUpdate);
+          }
         };
       }
   }, []);

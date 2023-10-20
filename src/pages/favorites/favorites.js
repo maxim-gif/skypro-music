@@ -6,11 +6,11 @@ import {CenterBlockContent} from '../../components/CenterBlockContent/CenterBloc
 import {Search} from '../../components/search/search.js'
 import * as S from './favorites.style.js'
 const { useState, useEffect } = React;
-import PropTypes from 'prop-types';
 
 
 
-const Favorites = ({logout}) => {
+
+const Favorites = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Favorites = ({logout}) => {
       <S.Wrapper>
        <S.Container>
         <S.Main>
-          <MainNav logout={logout}/>
+          <MainNav/>
           <div>
           <Search/>
           <S.CenterBlockH2>Мои треки</S.CenterBlockH2>
@@ -43,8 +43,5 @@ const Favorites = ({logout}) => {
   );  
 }
 
-Favorites.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
 
 export  {Favorites};

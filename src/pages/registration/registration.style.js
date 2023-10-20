@@ -46,6 +46,14 @@ background-color: transparent;
   height: auto;
 }
 `
+export const Error = styled.div`
+  color: coral;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: left;
+`
+
 export const ModalInput = styled.input`
 width: 100%;
 border-top: none;
@@ -81,6 +89,10 @@ align-items: center;
 -webkit-box-pack: center;
 -ms-flex-pack: center;
 justify-content: center;
+font-weight: 400;
+font-size: 18px;
+line-height: 24px;
+color: #FFFFFF;
 & > a {
     width: 100%;
     height: 100%;
@@ -105,5 +117,8 @@ justify-content: center;
   }
 &:active {
     background-color: #271A58;
+  }
+&:disabled {
+    background-color: grey;
   }
 `

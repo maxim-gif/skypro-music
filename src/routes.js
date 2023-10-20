@@ -6,29 +6,29 @@ import { Registration } from "./pages/registration/registration.js";
 import { Compilations } from "./pages/compilations/compilations.js";
 import { Favorites } from "./pages/favorites/favorites.js";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.js";
-import PropTypes from 'prop-types';
+import { AuthContext } from '../src/context/authContext.js';
+import { useContext } from "react";
 
 
-export const AppRoutes = ({ user, logout, login }) => {
+
+
+export const AppRoutes = () => {
+
+  const { user } = useContext(AuthContext);
+  
   return (
-    <Routes>
 
-      <Route path="*" element={<NotFound />} />
-      <Route path="/login" element={<Login login={login}/>} />
-      <Route path="/registration" element={<Registration />} />
+      <Routes>
+        <Route path="/login" element={<Login/>} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="*" element={<NotFound />} />
+        <Route element={<ProtectedRoute isAllowed={user ? Boolean(user.id) : false} />}>
+          <Route path="/" element={<HomePage/>} />
+          <Route path="/compilations/:id" element={<Compilations/>} />
+          <Route path="/favorites" element={<Favorites/>} />
+        </Route>
+      </Routes>
 
-      <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<HomePage logout={logout}/>} />
-        <Route path="/compilations/:id" element={<Compilations logout={logout}/>} />
-        <Route path="/favorites" element={<Favorites logout={logout}/>} />
-      </Route>
-
-    </Routes>
   );
 };
 
-AppRoutes.propTypes = {
-  user: PropTypes.string,
-  logout: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-};
