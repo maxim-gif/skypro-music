@@ -3,14 +3,13 @@ export async function createUser(email, password) {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-          },
+        },
         body: JSON.stringify({
-          email: email,
-          password: password,
-          username: email,
+            email: email,
+            password: password,
+            username: email,
         }),
-      })
-
+    })
 }
 
 export async function loginUser(email, password) {
@@ -18,10 +17,10 @@ export async function loginUser(email, password) {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-          },
+        },
         body: JSON.stringify({
-          email: email,
-          password: password,
+            email: email,
+            password: password,
         }),
-      })
+    })
 }
