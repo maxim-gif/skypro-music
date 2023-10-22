@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import {
     statusPlayingSelector,
     currentTrackSelector,
+    TracksSelector,
 } from '../../Store/selectors/track.js'
 
 const trackSvg = `/img/icon/sprite.svg`
@@ -13,11 +14,11 @@ const CenterBlockContent = ({
     isLoading,
     compilationsId,
     favoritesStatus,
-    tracks,
     getTrackData,
 }) => {
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
+    let tracks = useSelector(TracksSelector)
 
     isPlaying
         ? console.log(compilationsId, favoritesStatus)
@@ -95,7 +96,6 @@ CenterBlockContent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     favoritesStatus: PropTypes.bool.isRequired,
     compilationsId: PropTypes.number.isRequired,
-    tracks: PropTypes.array.isRequired,
     getTrackData: PropTypes.func.isRequired,
 }
 

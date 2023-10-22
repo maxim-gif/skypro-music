@@ -5,7 +5,7 @@ import { Filter } from '../filter/filter.js'
 import { Search } from '../search/search.js'
 import * as S from './CenterBlock.style.js'
 
-const CenterBlock = ({ isLoading, tracks, getTrackData, titleName }) => {
+const CenterBlock = ({ isLoading, getTrackData, titleName }) => {
     return (
         <S.MainCenterBlock>
             <Search />
@@ -13,7 +13,6 @@ const CenterBlock = ({ isLoading, tracks, getTrackData, titleName }) => {
             <Filter $isLoading={isLoading} />
             <CenterBlockContent
                 isLoading={isLoading}
-                tracks={tracks}
                 getTrackData={getTrackData}
             />
         </S.MainCenterBlock>
@@ -21,7 +20,6 @@ const CenterBlock = ({ isLoading, tracks, getTrackData, titleName }) => {
 }
 CenterBlock.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    tracks: PropTypes.array.isRequired,
     getTrackData: PropTypes.func.isRequired,
     titleName: PropTypes.string,
 }
