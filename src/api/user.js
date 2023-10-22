@@ -1,4 +1,4 @@
-import {baseUrl} from './baseURL.js'
+import { baseUrl } from './baseURL.js'
 
 export async function createUser(email, password) {
     return fetch(`${baseUrl}user/signup/`, {

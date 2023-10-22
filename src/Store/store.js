@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import trackReducer from './reducers/track.js'
-import thunk from "redux-thunk"
+
+import { api } from '../services/api.js'
 
 export const store = configureStore({
     reducer: {
         playerControl: trackReducer,
+        [api.reducerPath]: api.reducer,
     },
-    middleware: [thunk],
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(api.middleware),
 })

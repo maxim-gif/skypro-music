@@ -8,7 +8,6 @@ import { getTracks } from '../../api/track.js'
 import { tracksArr } from '../../tracks.array.js'
 import { useDispatch } from 'react-redux'
 import { setTrack, setTrackArr } from '../../Store/actions/creators/track.js'
-
 const { useState, useEffect } = React
 
 import { useParams } from 'react-router-dom'
@@ -32,7 +31,6 @@ const Compilations = () => {
         })
     }, [])
 
-
     const getTitle = (id) => {
         switch (id) {
             case 0:
@@ -45,8 +43,9 @@ const Compilations = () => {
                 return 'Инди-заряд'
         }
     }
-    console.log(getTitle(Number(params.id)));
-    let tittleName = getTitle(Number(params.id))
+
+    let titleName = getTitle(Number(params.id))
+
     return (
         <div>
             <S.Wrapper>
@@ -57,7 +56,7 @@ const Compilations = () => {
                             isLoading={isLoading}
                             tracks={tracks}
                             getTrackData={getTrackData}
-                            tittleName={tittleName}
+                            titleName={titleName}
                         />
                         <Sidebar isLoading={isLoading} />
                     </S.Main>

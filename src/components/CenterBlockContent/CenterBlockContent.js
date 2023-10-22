@@ -18,13 +18,16 @@ const CenterBlockContent = ({
 }) => {
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
-    console.log(compilationsId, favoritesStatus) //в зависимости от значения будет создан необходимый список
+
+    isPlaying
+        ? console.log(compilationsId, favoritesStatus)
+        : (compilationsId = 5) //в зависимости от значения будет создан необходимый список
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)
         const seconds = sec % 60 < 10 ? `0${sec % 60}` : sec % 60
         return `${minutes}:${seconds}`
     }
-    console.log(isPlaying)
+
     const tracksHtml = tracks.map((track) => (
         <S.PlaylistItem key={track.id} onClick={() => getTrackData(track.id)}>
             <S.PlaylistTrack>

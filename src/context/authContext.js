@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
         currentUser = null
     }
-
     const [email, setEmail] = useState('')
     const [searchEnable, setSearchEnable] = useState(true)
     const [user, setUser] = useState(currentUser)

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from './filter.style.js'
 import { AuthContext } from '../../context/authContext.js'
-import { useContext, useState} from 'react'
+import { useContext, useState } from 'react'
 
 const Filter = () => {
     const { searchEnable } = useContext(AuthContext)

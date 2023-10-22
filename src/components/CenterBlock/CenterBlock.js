@@ -5,14 +5,11 @@ import { Filter } from '../filter/filter.js'
 import { Search } from '../search/search.js'
 import * as S from './CenterBlock.style.js'
 
-
-const CenterBlock = ({ isLoading, tracks, getTrackData, tittleName }) => {
-
-
+const CenterBlock = ({ isLoading, tracks, getTrackData, titleName }) => {
     return (
         <S.MainCenterBlock>
-            <Search/>
-            <S.CenterBlockH2>{tittleName ? tittleName : 'Треки'}</S.CenterBlockH2>
+            <Search />
+            <S.CenterBlockH2>{titleName ? titleName : 'Треки'}</S.CenterBlockH2>
             <Filter $isLoading={isLoading} />
             <CenterBlockContent
                 isLoading={isLoading}
@@ -26,6 +23,6 @@ CenterBlock.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     tracks: PropTypes.array.isRequired,
     getTrackData: PropTypes.func.isRequired,
-    tittleName: PropTypes.string.isRequired,
+    titleName: PropTypes.string,
 }
 export { CenterBlock }

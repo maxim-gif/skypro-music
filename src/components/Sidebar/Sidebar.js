@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext.js'
 
 const Sidebar = ({ isLoading }) => {
-
     const { setSearchEnable } = useContext(AuthContext)
 
     return (
@@ -16,7 +15,12 @@ const Sidebar = ({ isLoading }) => {
             <S.SaidBarBlock>
                 <S.SaidBarList>
                     <S.SaidBarItem $isLoading={isLoading}>
-                        <Link onClick={() => {setSearchEnable(false)}} to="/compilations/1">
+                        <Link
+                            onClick={() => {
+                                setSearchEnable(false)
+                            }}
+                            to="/compilations/1"
+                        >
                             <S.SaidBarImg
                                 src="/img/playlist01.png"
                                 alt="day's playlist"
@@ -24,7 +28,12 @@ const Sidebar = ({ isLoading }) => {
                         </Link>
                     </S.SaidBarItem>
                     <S.SaidBarItem $isLoading={isLoading}>
-                        <Link onClick={() => {setSearchEnable(false)}} to="/compilations/2">
+                        <Link
+                            onClick={() => {
+                                setSearchEnable(false)
+                            }}
+                            to="/compilations/2"
+                        >
                             <S.SaidBarImg
                                 src="/img/playlist02.png"
                                 alt="day's playlist"
@@ -32,7 +41,12 @@ const Sidebar = ({ isLoading }) => {
                         </Link>
                     </S.SaidBarItem>
                     <S.SaidBarItem $isLoading={isLoading}>
-                        <Link onClick={() => {setSearchEnable(false)}} to="/compilations/3">
+                        <Link
+                            onClick={() => {
+                                setSearchEnable(false)
+                            }}
+                            to="/compilations/3"
+                        >
                             <S.SaidBarImg
                                 src="/img/playlist03.png"
                                 alt="day's playlist"
