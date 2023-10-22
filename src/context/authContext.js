@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const [email, setEmail] = useState('')
+    const [searchEnable, setSearchEnable] = useState(true)
     const [user, setUser] = useState(currentUser)
     const [password, setPassword] = useState('')
     return (
@@ -28,6 +29,8 @@ export const AuthProvider = ({ children }) => {
                 user,
                 setUser,
                 exit,
+                searchEnable,
+                setSearchEnable,
             }}
         >
             {children}

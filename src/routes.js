@@ -4,7 +4,6 @@ import { NotFound } from './pages/NotFound/NotFound.js'
 import { Login } from './pages/login/login.js'
 import { Registration } from './pages/registration/registration.js'
 import { Compilations } from './pages/compilations/compilations.js'
-import { Favorites } from './pages/favorites/favorites.js'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.js'
 import { AuthContext } from '../src/context/authContext.js'
 import { useContext } from 'react'
@@ -26,7 +25,6 @@ export const AppRoutes = () => {
             >
                 <Route path="/" element={<HomePage />} />
                 <Route path="/compilations/:id" element={<Compilations />} />
-                <Route path="/favorites" element={<Favorites />} />
             </Route>
         </Routes>
     )

@@ -1,7 +1,13 @@
 import React from 'react'
-const { useState } = React
 import * as S from './filter.style.js'
+import { AuthContext } from '../../context/authContext.js'
+import { useContext, useState} from 'react'
+
 const Filter = () => {
+    const { searchEnable } = useContext(AuthContext)
+    if (!searchEnable) {
+        return null
+    }
     const [visibleFilter, setVisibleFilter] = useState()
 
     return (
