@@ -1,5 +1,4 @@
 import { MainNav } from '../../components/MainNav/MainNav.js'
-import { Bar } from '../../components/bar/Bar.js'
 import { Sidebar } from '../../components/Sidebar/Sidebar.js'
 import { CenterBlock } from '../../components/CenterBlock/CenterBlock.js'
 import * as S from './HomePage.style.js'
@@ -9,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { setTrack, setTrackArr } from '../../Store/actions/creators/track.js'
 import { useSelector } from 'react-redux'
 import {TracksSelector} from '../../Store/selectors/track.js'
+
 
 const { useState, useEffect } = React
 
@@ -23,7 +23,6 @@ const HomePage = () => {
     const getTrackData = (key) => {
         const result = tracks.findIndex((item) => item.id === key)
         dispatch(setTrack(tracks[result]))
-        
     }
 
     useEffect(() => {
@@ -35,6 +34,7 @@ const HomePage = () => {
 
     return (
         <div>
+
             <S.Wrapper>
                 <S.Container>
                     <S.Main>
@@ -45,7 +45,6 @@ const HomePage = () => {
                         />
                         <Sidebar isLoading={isLoading} />
                     </S.Main>
-                    <Bar isLoading={isLoading} />
                     <footer></footer>
                 </S.Container>
             </S.Wrapper>
