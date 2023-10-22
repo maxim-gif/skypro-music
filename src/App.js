@@ -1,8 +1,7 @@
-import { AppRoutes } from "./routes";
-import { createGlobalStyle } from 'styled-components';
-import React from 'react';
-import { AuthProvider } from '../src/context/authContext.js';
-
+import { AppRoutes } from './routes'
+import { createGlobalStyle } from 'styled-components'
+import React from 'react'
+import { AuthProvider } from '../src/context/authContext.js'
 
 const GlobalStyle = createGlobalStyle`
 html,
@@ -83,17 +82,17 @@ ul li {
   stroke: #ffffff;
   cursor: pointer;
 }
-`;
+`
 
 const App = () => {
-  return (
-    <AuthProvider>
-      <>
-        <GlobalStyle />
-        <AppRoutes/>
-      </>
-    </AuthProvider>
-  );
-};
+    return (
+        <AuthProvider>
+            <>
+                <GlobalStyle />
+                <AppRoutes />
+            </>
+        </AuthProvider>
+    )
+}
 
-export { App };
+export { App }
