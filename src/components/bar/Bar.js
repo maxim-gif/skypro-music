@@ -127,7 +127,7 @@ const Bar = ({ isLoading }) => {
     }
     return (
         <>
-            <audio controls ref={audioRef}>
+            <audio ref={audioRef}>
                 <source src="" type="audio/mpeg" />
             </audio>
 

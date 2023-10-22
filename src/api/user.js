@@ -1,5 +1,7 @@
+import {baseUrl} from './baseURL.js'
+
 export async function createUser(email, password) {
-    return fetch('https://skypro-music-api.skyeng.tech/user/signup/', {
+    return fetch(`${baseUrl}user/signup/`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
@@ -13,7 +15,7 @@ export async function createUser(email, password) {
 }
 
 export async function loginUser(email, password) {
-    return fetch('https://skypro-music-api.skyeng.tech/user/login/', {
+    return fetch(`${baseUrl}user/login/`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
