@@ -2,19 +2,22 @@ import React, { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useGetAccessTokenMutation } from '../services/api.js'
 import { useDispatch } from 'react-redux'
-import { setTrackArr, setClearTrack } from '../Store/actions/creators/track.js'
+import { setStarredTrack, setClearTrack } from '../Store/actions/creators/track.js'
 
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     const dispatch = useDispatch()
     let storedData = localStorage.getItem('user')
+    console.log(JSON.parse(localStorage.getItem('user')).id);
     let currentUser
+
      const exit = () => {
         localStorage.removeItem('user')
         localStorage.removeItem('refreshToken')
         dispatch(setClearTrack())
     }
+
     try {
         currentUser = storedData ? JSON.parse(storedData) : null
     } catch (error) {
@@ -25,6 +28,9 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(currentUser)
     const [password, setPassword] = useState('')
 
+    const toggleLike = (key) => {
+        console.log(key);
+    }
     
     const [getAccessToken] = useGetAccessTokenMutation()
     // const handleGetCompilationsFavorite = () => {
@@ -75,7 +81,8 @@ export const AuthProvider = ({ children }) => {
                 })
                 .then((response) => response.json())
                 .then((json) => {
-                    dispatch(setTrackArr(json))
+                    console.log(json);
+                    dispatch(setStarredTrack(json))
                     
                 })
                 .catch((error) => {
@@ -99,6 +106,7 @@ export const AuthProvider = ({ children }) => {
                 searchEnable,
                 setSearchEnable,
                 handleGetCompilationsFavorite,
+                toggleLike,
             }}
         >
             {children}

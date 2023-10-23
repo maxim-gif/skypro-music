@@ -5,7 +5,7 @@ import { Filter } from '../filter/filter.js'
 import { Search } from '../search/search.js'
 import * as S from './CenterBlock.style.js'
 
-const CenterBlock = ({ isLoading, getTrackData, titleName }) => {
+const CenterBlock = ({isLoading, getTrackData, titleName }) => {
     return (
         <S.MainCenterBlock>
             <Search />

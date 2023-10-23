@@ -20,17 +20,22 @@ const Compilations = () => {
 
     const dispatch = useDispatch()
 
+  
+    
     const getTrackData = (key) => {
         const result = tracks.findIndex((item) => item.id === key)
         dispatch(setTrack(tracks[result]))
     }
+   
+
+
 
     useEffect(() => {
         if (Number(params.id) === 0) {
             handleGetCompilationsFavorite().then(setIsLoading(false))
 
         }
-
+        setIsLoading(false)
     }, [])
 
     const getTitle = (id) => {

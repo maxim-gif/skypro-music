@@ -6,9 +6,11 @@ import {
     SET_TRACK_ARR,
     SET_STATUS_PLAY,
     SET_CLEAR_TRACK,
+    SET_STARRED_TRACK,
 } from '../actions/types/track.js'
 
 const initialState = {
+    starredTrack: [],
     trackArr: [],
     track: {},
     shake: false,
@@ -107,6 +109,14 @@ export default function trackReducer(state = initialState, action) {
             return {
                 ...state,
                 trackArr: tracks,
+            }
+        }
+
+        case SET_STARRED_TRACK: {
+            const { tracks } = action.payload
+            return {
+                ...state,
+                starredTrack: tracks,
             }
         }
 

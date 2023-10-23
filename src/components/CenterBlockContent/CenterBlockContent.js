@@ -2,11 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './CenterBlockContent.style.js'
 import { useSelector } from 'react-redux'
+const { useContext } = React
+import { useParams } from 'react-router-dom'
 import {
     statusPlayingSelector,
     currentTrackSelector,
+    starredTrackSelector,
     TracksSelector,
 } from '../../Store/selectors/track.js'
+import { AuthContext } from '../../context/authContext.js'
 
 const trackSvg = `/img/icon/sprite.svg`
 
@@ -19,6 +23,17 @@ const CenterBlockContent = ({
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
     let tracks = useSelector(TracksSelector)
+    let starredTrack = useSelector(starredTrackSelector)
+
+    
+    const { toggleLike } = useContext(AuthContext)
+
+    const params = useParams()
+    let pageId = Number(params.id)
+
+    if (pageId === 0) {
+        tracks = useSelector(starredTrackSelector)
+    }
 
     isPlaying
         ? console.log(compilationsId, favoritesStatus)
@@ -30,9 +45,9 @@ const CenterBlockContent = ({
     }
 
     const tracksHtml = tracks.map((track) => (
-        <S.PlaylistItem key={track.id} onClick={() => getTrackData(track.id)}>
+        <S.PlaylistItem key={track.id} >
             <S.PlaylistTrack>
-                <S.TrackTitle>
+                <S.TrackTitle onClick={() => getTrackData(track.id)}>
                     <S.TrackTitleImg>
                         {currentlyTrack.id === track.id ? (
                             isPlaying ? (
@@ -62,8 +77,16 @@ const CenterBlockContent = ({
                     <S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
                 </S.TrackAlbum>
                 <div>
-                    <S.TrackTimeSvg alt="time">
+                    <S.TrackTimeSvg alt="time"  onClick={() => {toggleLike(track.id)}}>
+                    {pageId === 0 || starredTrack.find(item => item.id === track.id) ? (
+                        <image
+                            xlinkHref="/img/icon/like-active.png"
+                            width="100%"
+                            height="100%"
+                        />
+                    ) : (
                         <use xlinkHref={`${trackSvg}#icon-like`}></use>
+                    )}
                     </S.TrackTimeSvg>
                     <S.TrackTimeText>
                         {time(track.duration_in_seconds)}
