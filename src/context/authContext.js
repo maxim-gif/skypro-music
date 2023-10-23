@@ -9,7 +9,6 @@ export const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
     const dispatch = useDispatch()
     let storedData = localStorage.getItem('user')
-    console.log(JSON.parse(localStorage.getItem('user')).id);
     let currentUser
 
      const exit = () => {
@@ -27,10 +26,22 @@ export const AuthProvider = ({ children }) => {
     const [searchEnable, setSearchEnable] = useState(true)
     const [user, setUser] = useState(currentUser)
     const [password, setPassword] = useState('')
+    const [likeUpdated, setLikeUpdated] = useState(false);
 
-    const toggleLike = (key) => {
-        console.log(key);
+    const Like = (id, key ) => {
+             getAccessToken({ refresh: localStorage.getItem('refreshToken') })
+                .unwrap()
+                .then((result) => {
+                    fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
+                        method: key,
+                        headers: {
+                            Authorization: `Bearer ${result.access}`,
+                        },
+                        }).then(setLikeUpdated(prevState => !prevState))
+                })
     }
+
+ 
     
     const [getAccessToken] = useGetAccessTokenMutation()
     // const handleGetCompilationsFavorite = () => {
@@ -64,11 +75,9 @@ export const AuthProvider = ({ children }) => {
     // }
     const handleGetCompilationsFavorite = () => {
         return new Promise(() => {
-            console.log(localStorage.getItem('refreshToken'))
             getAccessToken({ refresh: localStorage.getItem('refreshToken') })
                 .unwrap()
                 .then((result) => {
-                    console.log(`Bearer ${result.access}`)
                     return fetch(
                         'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
                         {
@@ -81,7 +90,6 @@ export const AuthProvider = ({ children }) => {
                 })
                 .then((response) => response.json())
                 .then((json) => {
-                    console.log(json);
                     dispatch(setStarredTrack(json))
                     
                 })
@@ -106,7 +114,10 @@ export const AuthProvider = ({ children }) => {
                 searchEnable,
                 setSearchEnable,
                 handleGetCompilationsFavorite,
-                toggleLike,
+                Like,
+                setLikeUpdated,
+                likeUpdated,
+                
             }}
         >
             {children}

@@ -15,7 +15,7 @@ import { useParams } from 'react-router-dom'
 const Compilations = () => {
     const [isLoading, setIsLoading] = useState(true)
     let tracks = useSelector(TracksSelector)
-    const { handleGetCompilationsFavorite } = useContext(AuthContext)
+    const { handleGetCompilationsFavorite, likeUpdated } = useContext(AuthContext)
     const params = useParams()
 
     const dispatch = useDispatch()
@@ -25,6 +25,7 @@ const Compilations = () => {
     const getTrackData = (key) => {
         const result = tracks.findIndex((item) => item.id === key)
         dispatch(setTrack(tracks[result]))
+        
     }
    
 
@@ -36,7 +37,7 @@ const Compilations = () => {
 
         }
         setIsLoading(false)
-    }, [])
+    }, [likeUpdated])
 
     const getTitle = (id) => {
         switch (id) {

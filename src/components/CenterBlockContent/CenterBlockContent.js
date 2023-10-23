@@ -26,7 +26,7 @@ const CenterBlockContent = ({
     let starredTrack = useSelector(starredTrackSelector)
 
     
-    const { toggleLike } = useContext(AuthContext)
+    const { Like } = useContext(AuthContext)
 
     const params = useParams()
     let pageId = Number(params.id)
@@ -77,7 +77,7 @@ const CenterBlockContent = ({
                     <S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
                 </S.TrackAlbum>
                 <div>
-                    <S.TrackTimeSvg alt="time"  onClick={() => {toggleLike(track.id)}}>
+                    <S.TrackTimeSvg alt="time"  onClick={() => {starredTrack.find(item => item.id === track.id) ? Like(track.id, "DELETE" ):Like(track.id, "POST" )}}>
                     {pageId === 0 || starredTrack.find(item => item.id === track.id) ? (
                         <image
                             xlinkHref="/img/icon/like-active.png"

@@ -8,12 +8,14 @@ import { useDispatch } from 'react-redux'
 import { setTrack, setTrackArr } from '../../Store/actions/creators/track.js'
 import { useSelector } from 'react-redux'
 import {TracksSelector} from '../../Store/selectors/track.js'
+import { AuthContext } from '../../context/authContext.js'
 
 
-const { useState, useEffect } = React
+const { useState, useEffect, useContext } = React
 
 const HomePage = () => {
     const [isLoading, setIsLoading] = useState(true)
+    const { handleGetCompilationsFavorite, likeUpdated } = useContext(AuthContext)
 
 
     let tracks = useSelector(TracksSelector)
@@ -27,10 +29,11 @@ const HomePage = () => {
 
     useEffect(() => {
         getTracks().then((response) => {
+            handleGetCompilationsFavorite()
             setIsLoading(false)
             dispatch(setTrackArr(response))
         })
-    }, [])
+    }, [likeUpdated])
 
     return (
         <div>
