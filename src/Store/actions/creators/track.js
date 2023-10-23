@@ -5,6 +5,7 @@ import {
     SET_TRACK,
     SET_TRACK_ARR,
     SET_STATUS_PLAY,
+    SET_CLEAR_TRACK,
 } from '../types/track.js'
 
 export const switchNextTrack = () => ({
@@ -35,4 +36,8 @@ export const setTrackArr = (tracks) => ({
 
 export const setStatusPlay = () => ({
     type: SET_STATUS_PLAY,
+})
+
+export const setClearTrack = () => ({
+    type: SET_CLEAR_TRACK,
 })

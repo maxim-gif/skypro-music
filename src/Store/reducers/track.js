@@ -5,6 +5,7 @@ import {
     SET_TRACK,
     SET_TRACK_ARR,
     SET_STATUS_PLAY,
+    SET_CLEAR_TRACK,
 } from '../actions/types/track.js'
 
 const initialState = {
@@ -91,6 +92,13 @@ export default function trackReducer(state = initialState, action) {
                 ...state,
                 track: tracks,
                 playing: true,
+            }
+        }
+
+        case SET_CLEAR_TRACK: {
+            return {
+                ...state,
+                track: {}
             }
         }
 

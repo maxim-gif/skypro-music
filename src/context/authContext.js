@@ -2,17 +2,19 @@ import React, { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useGetAccessTokenMutation } from '../services/api.js'
 import { useDispatch } from 'react-redux'
-import { setTrackArr } from '../Store/actions/creators/track.js'
+import { setTrackArr, setClearTrack } from '../Store/actions/creators/track.js'
 
 export const AuthContext = createContext()
-export const exit = () => {
-    localStorage.removeItem('user')
-    localStorage.removeItem('refreshToken')
-}
+
 export const AuthProvider = ({ children }) => {
+    const dispatch = useDispatch()
     let storedData = localStorage.getItem('user')
     let currentUser
-
+     const exit = () => {
+        localStorage.removeItem('user')
+        localStorage.removeItem('refreshToken')
+        dispatch(setClearTrack())
+    }
     try {
         currentUser = storedData ? JSON.parse(storedData) : null
     } catch (error) {
@@ -23,7 +25,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(currentUser)
     const [password, setPassword] = useState('')
 
-    const dispatch = useDispatch()
+    
     const [getAccessToken] = useGetAccessTokenMutation()
     // const handleGetCompilationsFavorite = () => {
     //     console.log(localStorage.getItem('refreshToken'))
