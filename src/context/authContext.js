@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     const [authorList, setAuthorList] = useState([]);
     const [filterAuthor, setFilterAuthor] = useState([]);
     const [filterYear, setFilterYear] = useState('default');
-    const [filterGenre, setFilterGenre] = useState('');
+    const [filterGenre, setFilterGenre] = useState([]);
     
 
 

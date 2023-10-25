@@ -1,18 +1,18 @@
 import React from 'react'
 import * as S from './filter.style.js'  
 import { AuthContext } from '../../context/authContext.js'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 
 const Filter = () => {
 
-    const { searchEnable, authorList, filterAuthor, setFilterAuthor, setFilterYear, setFilterGenre } = useContext(AuthContext)
+    const { searchEnable, authorList, filterAuthor, setFilterAuthor, setFilterYear, setFilterGenre, filterYear, filterGenre } = useContext(AuthContext)
     if (!searchEnable) {
         return null
     }
 
 
     const [visibleFilter, setVisibleFilter] = useState()
-    const [activeLink, setActiveLink] = useState(false);
+
 
     const switchFilterAuthor = (author) => {
         if (filterAuthor.indexOf(author) === -1) {
@@ -20,23 +20,35 @@ const Filter = () => {
         } else {
             setFilterAuthor(prevFilterAuthor => prevFilterAuthor.filter(item => item !== author))
         }
-        setActiveLink(!activeLink)
+
     }
 
     const switchFilterYear = (year) => {
         setFilterYear(year)
-    }
-    const switchFilterGenre = (genre) => {
-        setFilterGenre(genre)
+        console.log(filterYear === 'default');
     }
 
-    useEffect(() => {
-        console.log(filterAuthor);
-    },[filterAuthor])
+
+    const switchFilterGenre = (genre) => {
+        if (filterGenre.indexOf(genre) === -1) {
+            setFilterGenre(prevFilterGenre => [...prevFilterGenre, genre])
+        } else {
+            setFilterGenre(prevFilterGenre => prevFilterGenre.filter(item => item !== genre))
+        }
+    }
+
+    // useEffect(() => {
+    //     console.log(filterAuthor);
+    // },[filterAuthor])
+    // useEffect(() => {
+    //     console.log(filterGenre);
+    // },[filterGenre])
 
 
     const authorListHtml = authorList.map((author) => (
-        <S.ModalLink key={author} onClick={(event) => {
+        <S.ModalLink key={author} 
+        $activeLink={filterAuthor.includes(author)}
+        onClick={(event) => {
             event.stopPropagation();
             switchFilterAuthor(author);
         }}>{author}</S.ModalLink>
@@ -70,9 +82,21 @@ const Filter = () => {
                 <span>году выпуска</span>
                 <S.SelectYear>
                     <S.ModalLinkBox>
-                        <S.ModalLink onClick={() => {switchFilterYear('default')}}>По умолчанию</S.ModalLink>
-                        <S.ModalLink onClick={() => {switchFilterYear('new')}}>Сначала новые</S.ModalLink>
-                        <S.ModalLink onClick={() => {switchFilterYear('old')}}>Сначала старые</S.ModalLink>
+                        <S.ModalLink onClick={(event) => {
+                            event.stopPropagation()
+                            switchFilterYear('default')
+                            }} 
+                            $activeLink={filterYear === 'default'}>По умолчанию</S.ModalLink>
+                        <S.ModalLink onClick={(event) => {
+                            event.stopPropagation()
+                            switchFilterYear('new')
+                            }} 
+                            $activeLink={filterYear === 'new'}>Сначала новые</S.ModalLink>
+                        <S.ModalLink onClick={(event) => {
+                            event.stopPropagation()
+                            switchFilterYear('old')
+                            }} 
+                            $activeLink={filterYear === 'old'}>Сначала старые</S.ModalLink>
                     </S.ModalLinkBox>
                 </S.SelectYear>
             </S.FilterButton>
@@ -86,9 +110,21 @@ const Filter = () => {
                 <span>жанру</span>
                 <S.SelectGenre>
                     <S.ModalLinkBox>
-                        <S.ModalLink onClick={() => {switchFilterGenre("Классическая музыка")}} >Классическая музыка</S.ModalLink>
-                        <S.ModalLink onClick={() => {switchFilterGenre("Рок музыка")}} >Рок музыка</S.ModalLink>
-                        <S.ModalLink onClick={() => {switchFilterGenre("Электронная музыка")}} >Электронная музыка</S.ModalLink>
+
+                        <S.ModalLink $activeLink={filterGenre.includes("Классическая музыка")} onClick={(event) => {
+                            event.stopPropagation();
+                            switchFilterGenre("Классическая музыка")
+                            }} >Классическая музыка</S.ModalLink>
+
+                        <S.ModalLink $activeLink={filterGenre.includes("Рок музыка")} onClick={(event) => {
+                            event.stopPropagation()
+                            switchFilterGenre("Рок музыка")
+                            }} >Рок музыка</S.ModalLink>
+
+                        <S.ModalLink $activeLink={filterGenre.includes("Электронная музыка")} onClick={(event) => {
+                            event.stopPropagation()
+                            switchFilterGenre("Электронная музыка")
+                            }} >Электронная музыка</S.ModalLink>
                     </S.ModalLinkBox>
                 </S.SelectGenre>
             </S.FilterButton>

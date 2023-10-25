@@ -28,7 +28,7 @@ const CenterBlockContent = ({isLoading}) => {
     const [tracks, setTracks] = useState([])
     const [originalTracks, setOriginalTracks] = useState([])
     
-    const { Like, searchText, setSearchText } = useContext(AuthContext)
+    const { Like, searchText, setSearchText, filterGenre, filterYear, filterAuthor } = useContext(AuthContext)
 
     
     const params = useParams()
@@ -73,12 +73,49 @@ const CenterBlockContent = ({isLoading}) => {
             setTracks(resultSearch);
     }, [searchText])
 
+    const stringDateToNumber = (date) => {
+        const [year, month, day] = date.split("-").map(Number);
+        const number = year * 365 + month * 30 + day;
+        return number;
+    }
+
+    useEffect(() => {
+        let resultFilter = originalTracks.map(track => {
+            return {
+              ...track,
+              release_date: stringDateToNumber(!track.release_date ? "2000-01-01":track.release_date)
+            };
+          });
+
+          if (filterYear === 'old') {
+            resultFilter.sort((a, b) => a.release_date - b.release_date);
+          } 
+          if (filterYear === 'new') {
+            resultFilter.sort((a, b) => b.release_date - a.release_date);
+          }
+
+          if (filterGenre.length !== 0) {
+            resultFilter = resultFilter.filter(track => filterGenre.includes(track.genre))
+          }
+
+          if (filterAuthor.length !== 0) {
+            console.log(filterAuthor);
+            resultFilter = resultFilter.filter(track => filterAuthor.includes(track.author))
+            console.log(resultFilter);
+          }
+          
+        setTracks(resultFilter);
+        console.log(resultFilter);
+    }, [filterGenre, filterYear, filterAuthor])
+
 
     const getTrackData = (key) => {
         const result = tracks.findIndex((item) => item.id === key)
         dispatch(setTrack(tracks[result]))
     }
 
+    // console.log(originalTracks);
+    // console.log(tracks);
 
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)

@@ -25,7 +25,7 @@ const HomePage = () => {
         getTracks().then((response) => {
             handleGetCompilationsFavorite()
             setIsLoading(false)
-            setAuthorList([...new Set(response.map(item => item.name))])
+            setAuthorList([...new Set(response.map(item => item.author))])
             dispatch(setTrackArr(response))
         })
     }, [likeUpdated])
