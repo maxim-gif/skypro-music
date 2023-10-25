@@ -9,6 +9,12 @@ const Filter = () => {
         return null
     }
     const [visibleFilter, setVisibleFilter] = useState()
+    const [activeLink, setActiveLink] = useState(false);
+
+    const switchLink = () => {
+        setActiveLink(!activeLink)
+        console.log(activeLink);
+    }
 
     return (
         <S.CenterBlockFilter>
@@ -23,7 +29,7 @@ const Filter = () => {
                 <span>исполнителю</span>
                 <S.SelectAuthor>
                     <S.ModalLinkBox>
-                        <S.ModalLink>Nero</S.ModalLink>
+                        <S.ModalLink onClick={switchLink} $activeLink={activeLink}>Nero</S.ModalLink>
                         <S.ModalLink>Dynoro</S.ModalLink>
                         <S.ModalLink>Ali Bakgor</S.ModalLink>
                         <S.ModalLink>Стоункат</S.ModalLink>

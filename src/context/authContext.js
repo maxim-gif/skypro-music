@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(currentUser)
     const [password, setPassword] = useState('')
     const [likeUpdated, setLikeUpdated] = useState(false);
+    const [searchText, setSearchText] = useState("");
 
     const Like = (id, key ) => {
              getAccessToken({ refresh: localStorage.getItem('refreshToken') })
@@ -117,9 +118,7 @@ export const AuthProvider = ({ children }) => {
                 })
                 .then((response) => response.json())
                 .then((json) => {
-                    console.log(json.items);
-                    dispatch(setCompilationIdTrack(json.items, id))
-                    
+                    dispatch(setCompilationIdTrack(json.items, id)) 
                 })
                 .catch((error) => {
                     console.error('An error occurred:', error)
@@ -146,6 +145,8 @@ export const AuthProvider = ({ children }) => {
                 setLikeUpdated,
                 handleGetCompilationsId,
                 likeUpdated,
+                searchText,
+                setSearchText,
                 
             }}
         >

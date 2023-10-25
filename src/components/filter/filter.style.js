@@ -17,6 +17,7 @@ export const ModalLink = styled.a`
     display: block;
     font-size: 20px;
     font-weight: 400;
+    ${({ $activeLink }) => $activeLink && `color: #b672ff;`}
 `
 export const CenterBlockFilter = styled.div`
     display: -webkit-box;

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './CenterBlockContent.style.js'
 import { useSelector } from 'react-redux'
-const { useContext } = React
+const { useContext, useEffect, useState } = React
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setTrack} from '../../Store/actions/creators/track.js'
@@ -10,9 +10,9 @@ import {
     statusPlayingSelector,
     currentTrackSelector,
     starredTrackSelector,
-    TracksSelector,
     classicMusicTrackSelector,
     rockMusicTrackSelector,
+    TracksSelector,
     electroMusicTrackSelector,
 } from '../../Store/selectors/track.js'
 import { AuthContext } from '../../context/authContext.js'
@@ -24,38 +24,63 @@ const CenterBlockContent = ({
 }) => {
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
-    let tracks = useSelector(TracksSelector)
     let starredTrack = useSelector(starredTrackSelector)
     const dispatch = useDispatch()
-    // let classicMusicTrack = useSelector(classicMusicTrackSelector)
-    // let rockMusicTrack = useSelector(rockMusicTrackSelector)
-    // let electroMusicTrack = useSelector(electroMusicTrackSelector)
+    const [tracks, setTracks] = useState([])
+    const [originalTracks, setOriginalTracks] = useState([])
+    
+    const { Like, searchText, setSearchText } = useContext(AuthContext)
 
     
-    const { Like } = useContext(AuthContext)
-
     const params = useParams()
     let pageId = Number(params.id)
 
-    if (pageId === 0) {
-        tracks = useSelector(starredTrackSelector)
-    }
-    if (pageId === 1) {
-        tracks = useSelector(classicMusicTrackSelector)
-    }
-    if (pageId === 2) {
-        tracks = useSelector(electroMusicTrackSelector)
-    }
-    if (pageId === 3) {
-        tracks = useSelector(rockMusicTrackSelector)
-    }
+    let defaultTracks = useSelector(TracksSelector)
+    let classicTracks = useSelector(classicMusicTrackSelector)
+    let electroTracks = useSelector(electroMusicTrackSelector)
+    let rockTracks = useSelector(rockMusicTrackSelector)
+    let starredTracks = useSelector(starredTrackSelector)
+
+
+    useEffect(() => {
+        setSearchText('')
+        if (!pageId) {
+            setTracks(defaultTracks)
+            setOriginalTracks(defaultTracks)
+        }
+        if (pageId === 0) {
+            setTracks(starredTracks)
+            setOriginalTracks(starredTracks)
+        }
+        if (pageId === 1) {
+            setTracks(classicTracks)
+            setOriginalTracks(classicTracks)
+        }
+        if (pageId === 2) {
+            setTracks(electroTracks)
+            setOriginalTracks(electroTracks)
+        }
+        if (pageId === 3) {
+            setTracks(rockTracks)
+            setOriginalTracks(rockTracks)
+        }
+    }, [starredTracks, classicTracks, electroTracks, rockTracks, defaultTracks])
+
+    console.log(tracks);
+    useEffect(() => {
+        const resultSearch = originalTracks.filter(track => 
+            track.name.toLowerCase().includes(searchText.toLowerCase()) || track.author.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setTracks(resultSearch);
+    }, [searchText])
+
 
     const getTrackData = (key) => {
         const result = tracks.findIndex((item) => item.id === key)
         dispatch(setTrack(tracks[result]))
     }
 
- //в зависимости от значения будет создан необходимый список
+
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)
         const seconds = sec % 60 < 10 ? `0${sec % 60}` : sec % 60

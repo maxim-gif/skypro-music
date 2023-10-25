@@ -15,21 +15,6 @@ const Compilations = () => {
     const params = useParams()
 
 
-
-  
-    
-    // const getTrackData = (key) => {
-    //     console.log(key);
-    //     console.log(tracks);
-    //     const result = tracks.findIndex((item) => item.id === key)
-    //     dispatch(setTrack(tracks[result]))
-    //     console.log(tracks[result]);
-        
-    // }
-   
-
-
-
     useEffect(() => {
         if (Number(params.id) === 0) {
             handleGetCompilationsFavorite().then(setIsLoading(false))
@@ -38,7 +23,6 @@ const Compilations = () => {
             handleGetCompilationsId(Number(params.id))
         }
         setIsLoading(false)
-        console.log(params.id);
     }, [likeUpdated])
 
     const getTitle = (id) => {
