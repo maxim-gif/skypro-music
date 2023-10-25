@@ -1,20 +1,47 @@
 import React from 'react'
-import * as S from './filter.style.js'
+import * as S from './filter.style.js'  
 import { AuthContext } from '../../context/authContext.js'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 
 const Filter = () => {
-    const { searchEnable } = useContext(AuthContext)
+
+    const { searchEnable, authorList, filterAuthor, setFilterAuthor, setFilterYear, setFilterGenre } = useContext(AuthContext)
     if (!searchEnable) {
         return null
     }
+
+
     const [visibleFilter, setVisibleFilter] = useState()
     const [activeLink, setActiveLink] = useState(false);
 
-    const switchLink = () => {
+    const switchFilterAuthor = (author) => {
+        if (filterAuthor.indexOf(author) === -1) {
+            setFilterAuthor(prevFilterAuthor => [...prevFilterAuthor, author])
+        } else {
+            setFilterAuthor(prevFilterAuthor => prevFilterAuthor.filter(item => item !== author))
+        }
         setActiveLink(!activeLink)
-        console.log(activeLink);
     }
+
+    const switchFilterYear = (year) => {
+        setFilterYear(year)
+    }
+    const switchFilterGenre = (genre) => {
+        setFilterGenre(genre)
+    }
+
+    useEffect(() => {
+        console.log(filterAuthor);
+    },[filterAuthor])
+
+
+    const authorListHtml = authorList.map((author) => (
+        <S.ModalLink key={author} onClick={(event) => {
+            event.stopPropagation();
+            switchFilterAuthor(author);
+        }}>{author}</S.ModalLink>
+    ))
+    
 
     return (
         <S.CenterBlockFilter>
@@ -23,20 +50,14 @@ const Filter = () => {
                 $isActive={visibleFilter === 'author'}
                 className={`_btn-text`}
                 onClick={() =>
-                    setVisibleFilter(visibleFilter === `author` ? '' : 'author')
+                    {
+                        setVisibleFilter(visibleFilter === `author` ? '' : 'author')
+                    }
                 }
             >
                 <span>исполнителю</span>
                 <S.SelectAuthor>
-                    <S.ModalLinkBox>
-                        <S.ModalLink onClick={switchLink} $activeLink={activeLink}>Nero</S.ModalLink>
-                        <S.ModalLink>Dynoro</S.ModalLink>
-                        <S.ModalLink>Ali Bakgor</S.ModalLink>
-                        <S.ModalLink>Стоункат</S.ModalLink>
-                        <S.ModalLink>AR/CO</S.ModalLink>
-                        <S.ModalLink>Zeds Dead</S.ModalLink>
-                        <S.ModalLink>Mr. Black</S.ModalLink>
-                    </S.ModalLinkBox>
+                    <S.ModalLinkBox>{authorListHtml}</S.ModalLinkBox>
                 </S.SelectAuthor>
             </S.FilterButton>
             <S.FilterButton
@@ -49,9 +70,9 @@ const Filter = () => {
                 <span>году выпуска</span>
                 <S.SelectYear>
                     <S.ModalLinkBox>
-                        <S.ModalLink>По умолчанию</S.ModalLink>
-                        <S.ModalLink>Сначала новые</S.ModalLink>
-                        <S.ModalLink>Сначала старые</S.ModalLink>
+                        <S.ModalLink onClick={() => {switchFilterYear('default')}}>По умолчанию</S.ModalLink>
+                        <S.ModalLink onClick={() => {switchFilterYear('new')}}>Сначала новые</S.ModalLink>
+                        <S.ModalLink onClick={() => {switchFilterYear('old')}}>Сначала старые</S.ModalLink>
                     </S.ModalLinkBox>
                 </S.SelectYear>
             </S.FilterButton>
@@ -65,13 +86,9 @@ const Filter = () => {
                 <span>жанру</span>
                 <S.SelectGenre>
                     <S.ModalLinkBox>
-                        <S.ModalLink>Рок</S.ModalLink>
-                        <S.ModalLink>Хип-хоп</S.ModalLink>
-                        <S.ModalLink>Поп-музыка</S.ModalLink>
-                        <S.ModalLink>Техно</S.ModalLink>
-                        <S.ModalLink>Инди</S.ModalLink>
-                        <S.ModalLink>Техно</S.ModalLink>
-                        <S.ModalLink>Инди</S.ModalLink>
+                        <S.ModalLink onClick={() => {switchFilterGenre("Классическая музыка")}} >Классическая музыка</S.ModalLink>
+                        <S.ModalLink onClick={() => {switchFilterGenre("Рок музыка")}} >Рок музыка</S.ModalLink>
+                        <S.ModalLink onClick={() => {switchFilterGenre("Электронная музыка")}} >Электронная музыка</S.ModalLink>
                     </S.ModalLinkBox>
                 </S.SelectGenre>
             </S.FilterButton>

@@ -13,21 +13,19 @@ const { useState, useEffect, useContext } = React
 
 const HomePage = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const { handleGetCompilationsFavorite, likeUpdated } = useContext(AuthContext)
+    const { handleGetCompilationsFavorite, likeUpdated, setAuthorList } = useContext(AuthContext)
 
 
 
     const dispatch = useDispatch()
 
-    // const getTrackData = (key) => {
-    //     const result = tracks.findIndex((item) => item.id === key)
-    //     dispatch(setTrack(tracks[result]))
-    // }
+
 
     useEffect(() => {
         getTracks().then((response) => {
             handleGetCompilationsFavorite()
             setIsLoading(false)
+            setAuthorList([...new Set(response.map(item => item.name))])
             dispatch(setTrackArr(response))
         })
     }, [likeUpdated])
@@ -52,3 +50,4 @@ const HomePage = () => {
 }
 
 export { HomePage }
+

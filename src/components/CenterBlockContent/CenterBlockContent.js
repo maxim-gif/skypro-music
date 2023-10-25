@@ -19,9 +19,8 @@ import { AuthContext } from '../../context/authContext.js'
 
 const trackSvg = `/img/icon/sprite.svg`
 
-const CenterBlockContent = ({
-    isLoading,
-}) => {
+const CenterBlockContent = ({isLoading}) => {
+
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
     let starredTrack = useSelector(starredTrackSelector)
@@ -66,7 +65,7 @@ const CenterBlockContent = ({
         }
     }, [starredTracks, classicTracks, electroTracks, rockTracks, defaultTracks])
 
-    console.log(tracks);
+
     useEffect(() => {
         const resultSearch = originalTracks.filter(track => 
             track.name.toLowerCase().includes(searchText.toLowerCase()) || track.author.toLowerCase().includes(searchText.toLowerCase())
