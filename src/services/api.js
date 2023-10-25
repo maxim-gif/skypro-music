@@ -27,11 +27,19 @@ export const api = createApi({
                 headers,
             }),
         }),
+        getCompilationsFId: builder.query({
+            query: (headers, id) => ({
+                url: `catalog/selection/${id}/`,
+                method: 'GET',
+                headers,
+            }),
+        }),
     }),
 })
 
 export const {
     useGetRefreshTokenMutation,
     useGetCompilationsFavoriteQuery,
+    useGetCompilationsFIdQuery,
     useGetAccessTokenMutation,
 } = api

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext.js'
 
 const Sidebar = ({ isLoading }) => {
-    const { setSearchEnable } = useContext(AuthContext)
+    const { setSearchEnable, handleGetCompilationsId } = useContext(AuthContext)
 
     return (
         <S.MainSaidBar>
@@ -18,6 +18,7 @@ const Sidebar = ({ isLoading }) => {
                         <Link
                             onClick={() => {
                                 setSearchEnable(false)
+                                handleGetCompilationsId(1)
                             }}
                             to="/compilations/1"
                         >
@@ -31,6 +32,7 @@ const Sidebar = ({ isLoading }) => {
                         <Link
                             onClick={() => {
                                 setSearchEnable(false)
+                                handleGetCompilationsId(2)
                             }}
                             to="/compilations/2"
                         >
@@ -44,6 +46,7 @@ const Sidebar = ({ isLoading }) => {
                         <Link
                             onClick={() => {
                                 setSearchEnable(false)
+                                handleGetCompilationsId(3)
                             }}
                             to="/compilations/3"
                         >

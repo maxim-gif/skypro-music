@@ -15,7 +15,7 @@ import { useParams } from 'react-router-dom'
 const Compilations = () => {
     const [isLoading, setIsLoading] = useState(true)
     let tracks = useSelector(TracksSelector)
-    const { handleGetCompilationsFavorite, likeUpdated } = useContext(AuthContext)
+    const { handleGetCompilationsFavorite, handleGetCompilationsId, likeUpdated } = useContext(AuthContext)
     const params = useParams()
 
     const dispatch = useDispatch()
@@ -34,9 +34,12 @@ const Compilations = () => {
     useEffect(() => {
         if (Number(params.id) === 0) {
             handleGetCompilationsFavorite().then(setIsLoading(false))
-
+        } else {
+            handleGetCompilationsFavorite()
+            handleGetCompilationsId(Number(params.id))
         }
         setIsLoading(false)
+        console.log(params.id);
     }, [likeUpdated])
 
     const getTitle = (id) => {

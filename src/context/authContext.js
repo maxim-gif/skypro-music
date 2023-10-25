@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useGetAccessTokenMutation } from '../services/api.js'
 import { useDispatch } from 'react-redux'
-import { setStarredTrack, setClearTrack } from '../Store/actions/creators/track.js'
+import { setStarredTrack, setClearTrack, setCompilationIdTrack } from '../Store/actions/creators/track.js'
 
 export const AuthContext = createContext()
 
@@ -100,6 +100,34 @@ export const AuthProvider = ({ children }) => {
         });         
     }
 
+    const handleGetCompilationsId = (id) => {
+        return new Promise(() => {
+            getAccessToken({ refresh: localStorage.getItem('refreshToken') })
+                .unwrap()
+                .then((result) => {
+                    return fetch(
+                        `https://skypro-music-api.skyeng.tech/catalog/selection/${id}/`,
+                        {
+                            method: 'GET',
+                            headers: {
+                                Authorization: `Bearer ${result.access}`,
+                            },
+                        },
+                    )
+                })
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json.items);
+                    dispatch(setCompilationIdTrack(json.items, id))
+                    
+                })
+                .catch((error) => {
+                    console.error('An error occurred:', error)
+                    
+                })
+        });         
+    }
+
 
     return (
         <AuthContext.Provider
@@ -116,6 +144,7 @@ export const AuthProvider = ({ children }) => {
                 handleGetCompilationsFavorite,
                 Like,
                 setLikeUpdated,
+                handleGetCompilationsId,
                 likeUpdated,
                 
             }}

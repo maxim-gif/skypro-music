@@ -9,6 +9,9 @@ import {
     currentTrackSelector,
     starredTrackSelector,
     TracksSelector,
+    classicMusicTrackSelector,
+    rockMusicTrackSelector,
+    electroMusicTrackSelector,
 } from '../../Store/selectors/track.js'
 import { AuthContext } from '../../context/authContext.js'
 
@@ -16,14 +19,15 @@ const trackSvg = `/img/icon/sprite.svg`
 
 const CenterBlockContent = ({
     isLoading,
-    compilationsId,
-    favoritesStatus,
     getTrackData,
 }) => {
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
     let tracks = useSelector(TracksSelector)
     let starredTrack = useSelector(starredTrackSelector)
+    // let classicMusicTrack = useSelector(classicMusicTrackSelector)
+    // let rockMusicTrack = useSelector(rockMusicTrackSelector)
+    // let electroMusicTrack = useSelector(electroMusicTrackSelector)
 
     
     const { Like } = useContext(AuthContext)
@@ -34,10 +38,17 @@ const CenterBlockContent = ({
     if (pageId === 0) {
         tracks = useSelector(starredTrackSelector)
     }
+    if (pageId === 1) {
+        tracks = useSelector(classicMusicTrackSelector)
+    }
+    if (pageId === 2) {
+        tracks = useSelector(electroMusicTrackSelector)
+    }
+    if (pageId === 3) {
+        tracks = useSelector(rockMusicTrackSelector)
+    }
 
-    isPlaying
-        ? console.log(compilationsId, favoritesStatus)
-        : (compilationsId = 5) //в зависимости от значения будет создан необходимый список
+ //в зависимости от значения будет создан необходимый список
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)
         const seconds = sec % 60 < 10 ? `0${sec % 60}` : sec % 60
@@ -78,7 +89,7 @@ const CenterBlockContent = ({
                 </S.TrackAlbum>
                 <div>
                     <S.TrackTimeSvg alt="time"  onClick={() => {starredTrack.find(item => item.id === track.id) ? Like(track.id, "DELETE" ):Like(track.id, "POST" )}}>
-                    {pageId === 0 || starredTrack.find(item => item.id === track.id) ? (
+                    {starredTrack.find(item => item.id === track.id) ? (
                         <image
                             xlinkHref="/img/icon/like-active.png"
                             width="100%"
@@ -117,8 +128,6 @@ const CenterBlockContent = ({
 
 CenterBlockContent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    favoritesStatus: PropTypes.bool.isRequired,
-    compilationsId: PropTypes.number.isRequired,
     getTrackData: PropTypes.func.isRequired,
 }
 
