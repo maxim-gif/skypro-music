@@ -2,33 +2,63 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './CenterBlockContent.style.js'
 import { useSelector } from 'react-redux'
+const { useContext } = React
+import { useParams } from 'react-router-dom'
 import {
     statusPlayingSelector,
     currentTrackSelector,
+    starredTrackSelector,
+    TracksSelector,
+    classicMusicTrackSelector,
+    rockMusicTrackSelector,
+    electroMusicTrackSelector,
 } from '../../Store/selectors/track.js'
+import { AuthContext } from '../../context/authContext.js'
 
 const trackSvg = `/img/icon/sprite.svg`
 
 const CenterBlockContent = ({
     isLoading,
-    compilationsId,
-    favoritesStatus,
-    tracks,
     getTrackData,
 }) => {
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
-    console.log(compilationsId, favoritesStatus) //в зависимости от значения будет создан необходимый список
+    let tracks = useSelector(TracksSelector)
+    let starredTrack = useSelector(starredTrackSelector)
+    // let classicMusicTrack = useSelector(classicMusicTrackSelector)
+    // let rockMusicTrack = useSelector(rockMusicTrackSelector)
+    // let electroMusicTrack = useSelector(electroMusicTrackSelector)
+
+    
+    const { Like } = useContext(AuthContext)
+
+    const params = useParams()
+    let pageId = Number(params.id)
+
+    if (pageId === 0) {
+        tracks = useSelector(starredTrackSelector)
+    }
+    if (pageId === 1) {
+        tracks = useSelector(classicMusicTrackSelector)
+    }
+    if (pageId === 2) {
+        tracks = useSelector(electroMusicTrackSelector)
+    }
+    if (pageId === 3) {
+        tracks = useSelector(rockMusicTrackSelector)
+    }
+
+ //в зависимости от значения будет создан необходимый список
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)
         const seconds = sec % 60 < 10 ? `0${sec % 60}` : sec % 60
         return `${minutes}:${seconds}`
     }
-    console.log(isPlaying)
+
     const tracksHtml = tracks.map((track) => (
-        <S.PlaylistItem key={track.id} onClick={() => getTrackData(track.id)}>
+        <S.PlaylistItem key={track.id} >
             <S.PlaylistTrack>
-                <S.TrackTitle>
+                <S.TrackTitle onClick={() => getTrackData(track.id)}>
                     <S.TrackTitleImg>
                         {currentlyTrack.id === track.id ? (
                             isPlaying ? (
@@ -58,8 +88,16 @@ const CenterBlockContent = ({
                     <S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
                 </S.TrackAlbum>
                 <div>
-                    <S.TrackTimeSvg alt="time">
+                    <S.TrackTimeSvg alt="time"  onClick={() => {starredTrack.find(item => item.id === track.id) ? Like(track.id, "DELETE" ):Like(track.id, "POST" )}}>
+                    {starredTrack.find(item => item.id === track.id) ? (
+                        <image
+                            xlinkHref="/img/icon/like-active.png"
+                            width="100%"
+                            height="100%"
+                        />
+                    ) : (
                         <use xlinkHref={`${trackSvg}#icon-like`}></use>
+                    )}
                     </S.TrackTimeSvg>
                     <S.TrackTimeText>
                         {time(track.duration_in_seconds)}
@@ -90,9 +128,6 @@ const CenterBlockContent = ({
 
 CenterBlockContent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    favoritesStatus: PropTypes.bool.isRequired,
-    compilationsId: PropTypes.number.isRequired,
-    tracks: PropTypes.array.isRequired,
     getTrackData: PropTypes.func.isRequired,
 }
 

@@ -3,16 +3,31 @@ import { Link, useNavigate } from 'react-router-dom'
 import { loginUser } from '../../api/user.js'
 import { useContext, useState, useEffect } from 'react'
 import { AuthContext } from '../../context/authContext.js'
+import { useGetRefreshTokenMutation } from '../../services/api.js'
 
 export const Login = () => {
     const navigate = useNavigate()
     const emailPattern = /^[\w.@+-]+$/
     const [dataLoading, setDataLoading] = useState(false)
     const [error, setError] = useState(null)
-    const { setEmail, setPassword, email, password, setUser } =
+    const { setEmail, setPassword, email, password, setUser, handleGetCompilationsFavorite } =
         useContext(AuthContext)
 
     useEffect(() => setError(null), [email, password])
+
+    const [getRefreshToken] = useGetRefreshTokenMutation()
+
+    const handleGetRefreshToken = async () => {
+        getRefreshToken({ email: email, password: password })
+            .unwrap()
+            .then((data) => {
+                localStorage.setItem('refreshToken', data.refresh)
+                console.log(localStorage.getItem('refreshToken'))
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
 
     const enter = async () => {
         if (!email || !password) {
@@ -35,6 +50,8 @@ export const Login = () => {
             const data = await response.json()
             setUser(data)
             localStorage.setItem('user', JSON.stringify(data))
+            handleGetRefreshToken()
+            handleGetCompilationsFavorite()
             navigate('/')
         } catch (error) {
             setError(error.message)

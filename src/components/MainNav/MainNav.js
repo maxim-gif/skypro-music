@@ -4,10 +4,18 @@ const { useState, useContext } = React
 import * as S from './MainNav.style.js'
 import { AuthContext } from '../../context/authContext.js'
 
+
 const MainNav = () => {
-    const { exit } = useContext(AuthContext)
+
+    // const {  refetch } = useGetCompilationsFavoriteQuery();
+
+    const { exit, setSearchEnable,handleGetCompilationsFavorite } = useContext(AuthContext)
     const [status, setStatus] = useState(true)
     const handleClick = () => setStatus(!status)
+
+
+
+
     return (
         <S.MainNav>
             <S.NavLogo>
@@ -21,12 +29,25 @@ const MainNav = () => {
             <S.NavMenu $status={status}>
                 <S.MenuList>
                     <S.MenuItem>
-                        <S.MenuLink as={Link} to="/">
+                        <S.MenuLink
+                            as={Link}
+                            onClick={() => {
+                                setSearchEnable(true)
+                            }}
+                            to="/"
+                        >
                             Главное
                         </S.MenuLink>
                     </S.MenuItem>
                     <S.MenuItem>
-                        <S.MenuLink as={Link} to="/favorites">
+                        <S.MenuLink
+                            as={Link}
+                            onClick={() => {
+                                setSearchEnable(false)
+                                handleGetCompilationsFavorite()
+                            }}
+                            to="/compilations/0"
+                        >
                             Мой плейлист
                         </S.MenuLink>
                     </S.MenuItem>

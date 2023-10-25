@@ -15,6 +15,7 @@ const BarControl = ({
     toggleShuffle,
     handleSwitchPreviousTrack,
 }) => {
+
     const dispatch = useDispatch()
 
     const handleSwitchNextTrack = () => {

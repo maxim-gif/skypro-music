@@ -1,19 +1,51 @@
 import { MainNav } from '../../components/MainNav/MainNav.js'
-import { Bar } from '../../components/bar/Bar.js'
-import { Personal } from '../../components/Personal/Personal.js'
-import { CenterBlockContent } from '../../components/CenterBlockContent/CenterBlockContent.js'
-import { Search } from '../../components/search/search.js'
-import { useParams } from 'react-router-dom'
+import { Sidebar } from '../../components/Sidebar/Sidebar.js'
+import { CenterBlock } from '../../components/CenterBlock/CenterBlock.js'
 import * as S from './compilations.style.js'
 import React from 'react'
-const { useState, useEffect } = React
+import { useDispatch } from 'react-redux'
+import { setTrack} from '../../Store/actions/creators/track.js'
+const { useState, useEffect, useContext } = React
+import { useSelector } from 'react-redux'
+import {TracksSelector} from '../../Store/selectors/track.js'
+import { AuthContext } from '../../context/authContext.js'
+
+import { useParams } from 'react-router-dom'
 
 const Compilations = () => {
     const [isLoading, setIsLoading] = useState(true)
+    let tracks = useSelector(TracksSelector)
+    const { handleGetCompilationsFavorite, handleGetCompilationsId, likeUpdated } = useContext(AuthContext)
     const params = useParams()
+
+    const dispatch = useDispatch()
+
+  
+    
+    const getTrackData = (key) => {
+        const result = tracks.findIndex((item) => item.id === key)
+        dispatch(setTrack(tracks[result]))
+        
+    }
+   
+
+
+
+    useEffect(() => {
+        if (Number(params.id) === 0) {
+            handleGetCompilationsFavorite().then(setIsLoading(false))
+        } else {
+            handleGetCompilationsFavorite()
+            handleGetCompilationsId(Number(params.id))
+        }
+        setIsLoading(false)
+        console.log(params.id);
+    }, [likeUpdated])
 
     const getTitle = (id) => {
         switch (id) {
+            case 0:
+                return 'Мои треки'
             case 1:
                 return 'Плейлист дня'
             case 2:
@@ -23,12 +55,7 @@ const Compilations = () => {
         }
     }
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false)
-        }, 5000)
-        return () => clearTimeout(timer)
-    }, [])
+    let titleName = getTitle(Number(params.id))
 
     return (
         <div>
@@ -36,21 +63,13 @@ const Compilations = () => {
                 <S.Container>
                     <S.Main>
                         <MainNav />
-                        <div>
-                            <Search />
-                            <S.CenterBlockH2>
-                                {getTitle(Number(params.id))}
-                            </S.CenterBlockH2>
-                            <CenterBlockContent
-                                isLoading={isLoading}
-                                compilationsId={Number(params.id)}
-                            />
-                        </div>
-                        <S.PersonalBlock>
-                            <Personal />
-                        </S.PersonalBlock>
+                        <CenterBlock
+                            isLoading={isLoading}
+                            getTrackData={getTrackData}
+                            titleName={titleName}
+                        />
+                        <Sidebar isLoading={isLoading} />
                     </S.Main>
-                    <Bar isLoading={isLoading} />
                     <footer></footer>
                 </S.Container>
             </S.Wrapper>

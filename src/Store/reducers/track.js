@@ -5,9 +5,16 @@ import {
     SET_TRACK,
     SET_TRACK_ARR,
     SET_STATUS_PLAY,
+    SET_CLEAR_TRACK,
+    SET_STARRED_TRACK,
+    SET_COMPILATION_ID_TRACK,
 } from '../actions/types/track.js'
 
 const initialState = {
+    classicMusicTrack: [],
+    rockMusicTrack: [],
+    electroMusicTrack: [],
+    starredTrack: [],
     trackArr: [],
     track: {},
     shake: false,
@@ -94,12 +101,50 @@ export default function trackReducer(state = initialState, action) {
             }
         }
 
+        case SET_CLEAR_TRACK: {
+            return {
+                ...state,
+                track: {}
+            }
+        }
+
         case SET_TRACK_ARR: {
             const { tracks } = action.payload
             return {
                 ...state,
                 trackArr: tracks,
             }
+        }
+
+        case SET_STARRED_TRACK: {
+            const { tracks } = action.payload
+            return {
+                ...state,
+                starredTrack: tracks,
+            }
+        }
+
+        case SET_COMPILATION_ID_TRACK: {
+            const { tracks, id } = action.payload
+            if (id === 1) {
+                return {
+                    ...state,
+                    classicMusicTrack: tracks,
+                }
+            }
+            if (id === 2) {
+                return {
+                    ...state,
+                    electroMusicTrack: tracks,
+                }
+            }
+            if (id === 3) {
+                return {
+                    ...state,
+                    rockMusicTrack: tracks,
+                }
+            }
+            break
         }
 
         case SET_STATUS_PLAY: {

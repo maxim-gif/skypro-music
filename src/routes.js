@@ -4,10 +4,10 @@ import { NotFound } from './pages/NotFound/NotFound.js'
 import { Login } from './pages/login/login.js'
 import { Registration } from './pages/registration/registration.js'
 import { Compilations } from './pages/compilations/compilations.js'
-import { Favorites } from './pages/favorites/favorites.js'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.js'
 import { AuthContext } from '../src/context/authContext.js'
 import { useContext } from 'react'
+import { Bar } from './components/bar/Bar.js'
 
 export const AppRoutes = () => {
     const { user } = useContext(AuthContext)
@@ -24,9 +24,8 @@ export const AppRoutes = () => {
                     />
                 }
             >
-                <Route path="/" element={<HomePage />} />
-                <Route path="/compilations/:id" element={<Compilations />} />
-                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/" element={<><HomePage /><Bar /></>} />
+                <Route path="/compilations/:id" element={<><Compilations /><Bar /></>} />
             </Route>
         </Routes>
     )

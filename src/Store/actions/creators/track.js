@@ -5,6 +5,9 @@ import {
     SET_TRACK,
     SET_TRACK_ARR,
     SET_STATUS_PLAY,
+    SET_CLEAR_TRACK,
+    SET_STARRED_TRACK,
+    SET_COMPILATION_ID_TRACK,
 } from '../types/track.js'
 
 export const switchNextTrack = () => ({
@@ -33,6 +36,25 @@ export const setTrackArr = (tracks) => ({
     },
 })
 
+export const setStarredTrack = (tracks) => ({
+    type: SET_STARRED_TRACK,
+    payload: {
+        tracks,
+    },
+})
+
+export const setCompilationIdTrack = (tracks, id) => ({
+    type: SET_COMPILATION_ID_TRACK,
+    payload: {
+        tracks,
+        id,
+    },
+})
+
 export const setStatusPlay = () => ({
     type: SET_STATUS_PLAY,
+})
+
+export const setClearTrack = () => ({
+    type: SET_CLEAR_TRACK,
 })

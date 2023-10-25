@@ -92,8 +92,12 @@ const Bar = ({ isLoading }) => {
 
     useEffect(() => {
         if (audioRef && audioRef.current) {
-            const onTimeUpdate = () =>
-                setCurrentTime(audioRef.current.currentTime)
+            const onTimeUpdate = () => {
+                if (audioRef.current) {
+                    setCurrentTime(audioRef.current.currentTime)
+                }
+            }
+                
 
             audioRef.current.addEventListener('timeupdate', onTimeUpdate)
 
@@ -127,7 +131,7 @@ const Bar = ({ isLoading }) => {
     }
     return (
         <>
-            <audio controls ref={audioRef}>
+            <audio ref={audioRef}>
                 <source src="" type="audio/mpeg" />
             </audio>
 
@@ -203,6 +207,6 @@ const Bar = ({ isLoading }) => {
 }
 
 Bar.propTypes = {
-    isLoading: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool,
 }
 export { Bar }

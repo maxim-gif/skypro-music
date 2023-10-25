@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 import React from 'react'
 import { AuthProvider } from '../src/context/authContext.js'
 
+
 const GlobalStyle = createGlobalStyle`
 html,
 body {
@@ -90,6 +91,7 @@ const App = () => {
             <>
                 <GlobalStyle />
                 <AppRoutes />
+
             </>
         </AuthProvider>
     )
