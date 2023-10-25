@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import * as S from './CenterBlockContent.style.js'
 import { useSelector } from 'react-redux'
 const { useContext } = React
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { setTrack} from '../../Store/actions/creators/track.js'
 import {
     statusPlayingSelector,
     currentTrackSelector,
@@ -19,12 +21,12 @@ const trackSvg = `/img/icon/sprite.svg`
 
 const CenterBlockContent = ({
     isLoading,
-    getTrackData,
 }) => {
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
     let tracks = useSelector(TracksSelector)
     let starredTrack = useSelector(starredTrackSelector)
+    const dispatch = useDispatch()
     // let classicMusicTrack = useSelector(classicMusicTrackSelector)
     // let rockMusicTrack = useSelector(rockMusicTrackSelector)
     // let electroMusicTrack = useSelector(electroMusicTrackSelector)
@@ -46,6 +48,11 @@ const CenterBlockContent = ({
     }
     if (pageId === 3) {
         tracks = useSelector(rockMusicTrackSelector)
+    }
+
+    const getTrackData = (key) => {
+        const result = tracks.findIndex((item) => item.id === key)
+        dispatch(setTrack(tracks[result]))
     }
 
  //в зависимости от значения будет создан необходимый список
@@ -128,7 +135,6 @@ const CenterBlockContent = ({
 
 CenterBlockContent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    getTrackData: PropTypes.func.isRequired,
 }
 
 CenterBlockContent.defaultProps = {
