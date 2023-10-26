@@ -10,8 +10,14 @@ export const Login = () => {
     const emailPattern = /^[\w.@+-]+$/
     const [dataLoading, setDataLoading] = useState(false)
     const [error, setError] = useState(null)
-    const { setEmail, setPassword, email, password, setUser, handleGetCompilationsFavorite } =
-        useContext(AuthContext)
+    const {
+        setEmail,
+        setPassword,
+        email,
+        password,
+        setUser,
+        handleGetCompilationsFavorite,
+    } = useContext(AuthContext)
 
     useEffect(() => setError(null), [email, password])
 

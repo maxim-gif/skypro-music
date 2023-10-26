@@ -50,7 +50,6 @@ export const CounterFilter = styled.div`
     line-height: 13px;
 `
 
-
 export const FilterTitle = styled.div`
     font-style: normal;
     font-weight: 400;

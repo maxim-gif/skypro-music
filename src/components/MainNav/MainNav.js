@@ -4,22 +4,26 @@ const { useState, useContext } = React
 import * as S from './MainNav.style.js'
 import { AuthContext } from '../../context/authContext.js'
 
-
 const MainNav = () => {
-
     // const {  refetch } = useGetCompilationsFavoriteQuery();
 
-    const { exit, setSearchEnable,handleGetCompilationsFavorite } = useContext(AuthContext)
+    const { exit, setSearchEnable, handleGetCompilationsFavorite } =
+        useContext(AuthContext)
     const [status, setStatus] = useState(true)
     const handleClick = () => setStatus(!status)
-
-
-
 
     return (
         <S.MainNav>
             <S.NavLogo>
-                <S.LogoImg src="/img/logo.png" alt="logo" />
+                <S.LogoLink
+                    as={Link}
+                    onClick={() => {
+                        setSearchEnable(true)
+                    }}
+                    to="/"
+                >
+                    <S.LogoImg src="/img/logo.png" alt="logo" />
+                </S.LogoLink>
             </S.NavLogo>
             <S.NavBurger onClick={handleClick}>
                 <S.BurgerLine></S.BurgerLine>

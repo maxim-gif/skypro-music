@@ -104,7 +104,7 @@ export default function trackReducer(state = initialState, action) {
         case SET_CLEAR_TRACK: {
             return {
                 ...state,
-                track: {}
+                track: {},
             }
         }
 

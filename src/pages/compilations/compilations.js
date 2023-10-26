@@ -11,9 +11,12 @@ import { useParams } from 'react-router-dom'
 const Compilations = () => {
     const [isLoading, setIsLoading] = useState(true)
 
-    const { handleGetCompilationsFavorite, handleGetCompilationsId, likeUpdated } = useContext(AuthContext)
+    const {
+        handleGetCompilationsFavorite,
+        handleGetCompilationsId,
+        likeUpdated,
+    } = useContext(AuthContext)
     const params = useParams()
-
 
     useEffect(() => {
         if (Number(params.id) === 0) {

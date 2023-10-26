@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 const { useContext, useEffect, useState } = React
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { setTrack} from '../../Store/actions/creators/track.js'
+import { setTrack } from '../../Store/actions/creators/track.js'
 import {
     statusPlayingSelector,
     currentTrackSelector,
@@ -19,18 +19,24 @@ import { AuthContext } from '../../context/authContext.js'
 
 const trackSvg = `/img/icon/sprite.svg`
 
-const CenterBlockContent = ({isLoading}) => {
-
+const CenterBlockContent = ({ isLoading }) => {
     let isPlaying = useSelector(statusPlayingSelector)
     let currentlyTrack = useSelector(currentTrackSelector)
     let starredTrack = useSelector(starredTrackSelector)
     const dispatch = useDispatch()
     const [tracks, setTracks] = useState([])
     const [originalTracks, setOriginalTracks] = useState([])
-    
-    const { Like, searchText, setSearchText, filterGenre, filterYear, filterAuthor } = useContext(AuthContext)
+    const [filteredTracks, setFilteredTracks] = useState([])
 
-    
+    const {
+        Like,
+        searchText,
+        setSearchText,
+        filterGenre,
+        filterYear,
+        filterAuthor,
+    } = useContext(AuthContext)
+
     const params = useParams()
     let pageId = Number(params.id)
 
@@ -40,12 +46,12 @@ const CenterBlockContent = ({isLoading}) => {
     let rockTracks = useSelector(rockMusicTrackSelector)
     let starredTracks = useSelector(starredTrackSelector)
 
-
     useEffect(() => {
         setSearchText('')
         if (!pageId) {
             setTracks(defaultTracks)
             setOriginalTracks(defaultTracks)
+            setFilteredTracks(defaultTracks)
         }
         if (pageId === 0) {
             setTracks(starredTracks)
@@ -65,57 +71,58 @@ const CenterBlockContent = ({isLoading}) => {
         }
     }, [starredTracks, classicTracks, electroTracks, rockTracks, defaultTracks])
 
-
-    useEffect(() => {
-        const resultSearch = originalTracks.filter(track => 
-            track.name.toLowerCase().includes(searchText.toLowerCase()) || track.author.toLowerCase().includes(searchText.toLowerCase())
-            );
-            setTracks(resultSearch);
-    }, [searchText])
-
     const stringDateToNumber = (date) => {
-        const [year, month, day] = date.split("-").map(Number);
-        const number = year * 365 + month * 30 + day;
-        return number;
+        const [year, month, day] = date.split('-').map(Number)
+        const number = year * 365 + month * 30 + day
+        return number
     }
 
     useEffect(() => {
-        let resultFilter = originalTracks.map(track => {
+        let resultFilter = originalTracks.map((track) => {
             return {
-              ...track,
-              release_date: stringDateToNumber(!track.release_date ? "2000-01-01":track.release_date)
-            };
-          });
+                ...track,
+                release_date: stringDateToNumber(
+                    !track.release_date ? '2000-01-01' : track.release_date,
+                ),
+            }
+        })
 
-          if (filterYear === 'old') {
-            resultFilter.sort((a, b) => a.release_date - b.release_date);
-          } 
-          if (filterYear === 'new') {
-            resultFilter.sort((a, b) => b.release_date - a.release_date);
-          }
+        if (filterYear === 'old') {
+            resultFilter.sort((a, b) => a.release_date - b.release_date)
+        }
+        if (filterYear === 'new') {
+            resultFilter.sort((a, b) => b.release_date - a.release_date)
+        }
 
-          if (filterGenre.length !== 0) {
-            resultFilter = resultFilter.filter(track => filterGenre.includes(track.genre))
-          }
+        if (filterGenre.length !== 0) {
+            resultFilter = resultFilter.filter((track) =>
+                filterGenre.includes(track.genre),
+            )
+        }
 
-          if (filterAuthor.length !== 0) {
-            console.log(filterAuthor);
-            resultFilter = resultFilter.filter(track => filterAuthor.includes(track.author))
-            console.log(resultFilter);
-          }
-          
-        setTracks(resultFilter);
-        console.log(resultFilter);
+        if (filterAuthor.length !== 0) {
+            resultFilter = resultFilter.filter((track) =>
+                filterAuthor.includes(track.author),
+            )
+        }
+
+        setTracks(resultFilter)
+        setFilteredTracks(resultFilter)
     }, [filterGenre, filterYear, filterAuthor])
 
+    useEffect(() => {
+        const resultSearch = filteredTracks.filter(
+            (track) =>
+                track.name.toLowerCase().includes(searchText.toLowerCase()) ||
+                track.author.toLowerCase().includes(searchText.toLowerCase()),
+        )
+        setTracks(resultSearch)
+    }, [searchText])
 
     const getTrackData = (key) => {
         const result = tracks.findIndex((item) => item.id === key)
         dispatch(setTrack(tracks[result]))
     }
-
-    // console.log(originalTracks);
-    // console.log(tracks);
 
     const time = (sec) => {
         const minutes = Math.floor(sec / 60)
@@ -124,7 +131,7 @@ const CenterBlockContent = ({isLoading}) => {
     }
 
     const tracksHtml = tracks.map((track) => (
-        <S.PlaylistItem key={track.id} >
+        <S.PlaylistItem key={track.id}>
             <S.PlaylistTrack>
                 <S.TrackTitle onClick={() => getTrackData(track.id)}>
                     <S.TrackTitleImg>
@@ -156,16 +163,23 @@ const CenterBlockContent = ({isLoading}) => {
                     <S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
                 </S.TrackAlbum>
                 <div>
-                    <S.TrackTimeSvg alt="time"  onClick={() => {starredTrack.find(item => item.id === track.id) ? Like(track.id, "DELETE" ):Like(track.id, "POST" )}}>
-                    {starredTrack.find(item => item.id === track.id) ? (
-                        <image
-                            xlinkHref="/img/icon/like-active.png"
-                            width="100%"
-                            height="100%"
-                        />
-                    ) : (
-                        <use xlinkHref={`${trackSvg}#icon-like`}></use>
-                    )}
+                    <S.TrackTimeSvg
+                        alt="time"
+                        onClick={() => {
+                            starredTrack.find((item) => item.id === track.id)
+                                ? Like(track.id, 'DELETE')
+                                : Like(track.id, 'POST')
+                        }}
+                    >
+                        {starredTrack.find((item) => item.id === track.id) ? (
+                            <image
+                                xlinkHref="/img/icon/like-active.png"
+                                width="100%"
+                                height="100%"
+                            />
+                        ) : (
+                            <use xlinkHref={`${trackSvg}#icon-like`}></use>
+                        )}
                     </S.TrackTimeSvg>
                     <S.TrackTimeText>
                         {time(track.duration_in_seconds)}
@@ -189,7 +203,13 @@ const CenterBlockContent = ({isLoading}) => {
                     </S.PlaylistTitleSvg>
                 </S.PlaylistTitleCol>
             </S.ContentTitle>
-            <S.ContentPlaylist>{tracksHtml}</S.ContentPlaylist>
+            <S.ContentPlaylist>
+                {tracksHtml.length === 0 ? (
+                    <S.NotFound>Ничего не найдено (ಥ﹏ಥ)</S.NotFound>
+                ) : (
+                    tracksHtml
+                )}
+            </S.ContentPlaylist>
         </S.CenterBlockContent>
     )
 }

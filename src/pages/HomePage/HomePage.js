@@ -8,38 +8,31 @@ import { useDispatch } from 'react-redux'
 import { setTrackArr } from '../../Store/actions/creators/track.js'
 import { AuthContext } from '../../context/authContext.js'
 
-
 const { useState, useEffect, useContext } = React
 
 const HomePage = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const { handleGetCompilationsFavorite, likeUpdated, setAuthorList } = useContext(AuthContext)
-
-
+    const { handleGetCompilationsFavorite, likeUpdated, setAuthorList } =
+        useContext(AuthContext)
 
     const dispatch = useDispatch()
-
-
 
     useEffect(() => {
         getTracks().then((response) => {
             handleGetCompilationsFavorite()
             setIsLoading(false)
-            setAuthorList([...new Set(response.map(item => item.author))])
+            setAuthorList([...new Set(response.map((item) => item.author))])
             dispatch(setTrackArr(response))
         })
     }, [likeUpdated])
 
     return (
         <div>
-
             <S.Wrapper>
                 <S.Container>
                     <S.Main>
                         <MainNav />
-                        <CenterBlock
-                            isLoading={isLoading}
-                        />
+                        <CenterBlock isLoading={isLoading} />
                         <Sidebar isLoading={isLoading} />
                     </S.Main>
                     <footer></footer>
@@ -50,4 +43,3 @@ const HomePage = () => {
 }
 
 export { HomePage }
-

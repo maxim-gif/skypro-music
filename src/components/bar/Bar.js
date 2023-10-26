@@ -5,7 +5,10 @@ import { BarControl } from '../BarControl/BarControl.js'
 import { useRef, useState, useEffect, useContext } from 'react'
 import * as S from './Bar.style.js'
 import { useSelector } from 'react-redux'
-import { currentTrackSelector, starredTrackSelector } from '../../Store/selectors/track.js'
+import {
+    currentTrackSelector,
+    starredTrackSelector,
+} from '../../Store/selectors/track.js'
 import { useDispatch } from 'react-redux'
 import { AuthContext } from '../../context/authContext.js'
 import {
@@ -100,7 +103,6 @@ const Bar = ({ isLoading }) => {
                     setCurrentTime(audioRef.current.currentTime)
                 }
             }
-                
 
             audioRef.current.addEventListener('timeupdate', onTimeUpdate)
 
@@ -186,16 +188,31 @@ const Bar = ({ isLoading }) => {
 
                                 <S.TrackPlayLikeDis>
                                     <S.TrackPlayLikeAndDis className="_btn-icon">
-                                        <S.TrackPlayLikeSvg alt="like" onClick={() => {starredTrack.find(item => item.id === trackId.id) ? Like(trackId.id, "DELETE" ):Like(trackId.id, "POST" )}}>
-                                            {starredTrack.find(item => item.id === trackId.id) ? (
-                                            <image
-                                                xlinkHref="/img/icon/like-active.png"
-                                                width="100%"
-                                                height="100%"
-                                            />
-                                        ) : (
-                                            <use xlinkHref={`/img/icon/sprite.svg#icon-like`}></use>
-                                        )}
+                                        <S.TrackPlayLikeSvg
+                                            alt="like"
+                                            onClick={() => {
+                                                starredTrack.find(
+                                                    (item) =>
+                                                        item.id === trackId.id,
+                                                )
+                                                    ? Like(trackId.id, 'DELETE')
+                                                    : Like(trackId.id, 'POST')
+                                            }}
+                                        >
+                                            {starredTrack.find(
+                                                (item) =>
+                                                    item.id === trackId.id,
+                                            ) ? (
+                                                <image
+                                                    xlinkHref="/img/icon/like-active.png"
+                                                    width="100%"
+                                                    height="100%"
+                                                />
+                                            ) : (
+                                                <use
+                                                    xlinkHref={`/img/icon/sprite.svg#icon-like`}
+                                                ></use>
+                                            )}
                                         </S.TrackPlayLikeSvg>
                                     </S.TrackPlayLikeAndDis>
                                 </S.TrackPlayLikeDis>

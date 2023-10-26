@@ -37,6 +37,8 @@ export const MenuLink = styled(Link)`
     font-size: 16px;
     line-height: 24px;
 `
+export const LogoLink = styled(Link)``
+
 export const NavBurger = styled.div`
     width: 20px;
     height: 36px;
