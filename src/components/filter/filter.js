@@ -59,7 +59,6 @@ const Filter = () => {
         <S.CenterBlockFilter>
             <S.FilterTitle>Искать по:</S.FilterTitle>
             <S.FilterButton
-                $isActive={visibleFilter === 'author'}
                 className={`_btn-text`}
                 onClick={() =>
                     {
@@ -68,19 +67,19 @@ const Filter = () => {
                 }
             >
                 <span>исполнителю</span>
-                <S.SelectAuthor>
+                <S.SelectAuthor $isActive={visibleFilter === 'author'}>
                     <S.ModalLinkBox>{authorListHtml}</S.ModalLinkBox>
                 </S.SelectAuthor>
+                <S.CounterFilter $visible={filterAuthor.length === 0}>{filterAuthor.length}</S.CounterFilter>
             </S.FilterButton>
             <S.FilterButton
-                $isActive={visibleFilter === 'year'}
                 className={`_btn-text`}
                 onClick={() =>
                     setVisibleFilter(visibleFilter === `year` ? '' : 'year')
                 }
             >
                 <span>году выпуска</span>
-                <S.SelectYear>
+                <S.SelectYear $isActive={visibleFilter === 'year'}>
                     <S.ModalLinkBox>
                         <S.ModalLink onClick={(event) => {
                             event.stopPropagation()
@@ -101,16 +100,14 @@ const Filter = () => {
                 </S.SelectYear>
             </S.FilterButton>
             <S.FilterButton
-                $isActive={visibleFilter === 'genre'}
                 className={`_btn-text`}
                 onClick={() =>
                     setVisibleFilter(visibleFilter === `genre` ? '' : 'genre')
                 }
             >
                 <span>жанру</span>
-                <S.SelectGenre>
+                <S.SelectGenre $isActive={visibleFilter === 'genre'}>
                     <S.ModalLinkBox>
-
                         <S.ModalLink $activeLink={filterGenre.includes("Классическая музыка")} onClick={(event) => {
                             event.stopPropagation();
                             switchFilterGenre("Классическая музыка")
@@ -127,6 +124,7 @@ const Filter = () => {
                             }} >Электронная музыка</S.ModalLink>
                     </S.ModalLinkBox>
                 </S.SelectGenre>
+                <S.CounterFilter $visible={filterGenre.length === 0}>{filterGenre.length}</S.CounterFilter>
             </S.FilterButton>
         </S.CenterBlockFilter>
     )

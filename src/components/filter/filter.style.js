@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 const SelectMixin = css`
-    display: none;
+    display: ${({ $isActive }) => ($isActive ? 'block' : 'none')};
     position: absolute;
     border-radius: 12px;
     padding: 34px;
@@ -32,6 +32,25 @@ export const CenterBlockFilter = styled.div`
     align-items: center;
     margin-bottom: 51px;
 `
+
+export const CounterFilter = styled.div`
+    display: ${({ $visible }) => ($visible ? 'none' : 'flex')};
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    width: 26px;
+    background-color: rgb(173, 97, 255);
+    border-radius: 50%;
+    right: -8px;
+    top: -8px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13px;
+`
+
+
 export const FilterTitle = styled.div`
     font-style: normal;
     font-weight: 400;
@@ -74,9 +93,7 @@ export const FilterButton = styled.div`
     color: #d9b6ff;
   }
 border-color: #d9b6ff;
-& > div{
-    display:block;
-}
+
 `}
 `
 export const SelectAuthor = styled.div`
