@@ -92,6 +92,10 @@ const Bar = ({ isLoading }) => {
                     'ended',
                     handleSwitchNextTrack,
                 )
+                audioRef.current.removeEventListener('loadedmetadata', () => {
+                    setDuration(audioRef.current.duration)
+                    handleStart()
+                })
             }
         }
     }, [trackId])

@@ -1,6 +1,6 @@
 import * as S from './login.style.js'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginUser } from '../../api/user.js'
+import { loginUser } from '../../services/user.js'
 import { useContext, useState, useEffect } from 'react'
 import { AuthContext } from '../../context/authContext.js'
 import { useGetRefreshTokenMutation } from '../../services/api.js'
