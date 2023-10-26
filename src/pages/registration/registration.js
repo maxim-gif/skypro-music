@@ -1,7 +1,7 @@
 import * as S from './registration.style.js'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
-import { createUser } from '../../services/user.js'
+import { createUser } from '../../api/user.js'
 import { AuthContext } from '../../context/authContext.js'
 
 export const Registration = () => {
