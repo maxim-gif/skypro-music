@@ -46,37 +46,38 @@ const CenterBlockContent = ({ isLoading }) => {
     let rockTracks = useSelector(rockMusicTrackSelector)
     let starredTracks = useSelector(starredTrackSelector)
 
+
+
     useEffect(() => {
         setSearchText('')
+        const tracksMap = {
+            'default': defaultTracks,
+            0: starredTracks,
+            1: classicTracks,
+            2: electroTracks,
+            3: rockTracks,
+        }
+ 
+        let tracksToSet
+
         if (!pageId) {
-            setTracks(defaultTracks)
-            setOriginalTracks(defaultTracks)
-            setFilteredTracks(defaultTracks)
+            tracksToSet = tracksMap['default'];
+        } else {
+            tracksToSet = tracksMap[pageId];
         }
-        if (pageId === 0) {
-            setTracks(starredTracks)
-            setOriginalTracks(starredTracks)
-        }
-        if (pageId === 1) {
-            setTracks(classicTracks)
-            setOriginalTracks(classicTracks)
-        }
-        if (pageId === 2) {
-            setTracks(electroTracks)
-            setOriginalTracks(electroTracks)
-        }
-        if (pageId === 3) {
-            setTracks(rockTracks)
-            setOriginalTracks(rockTracks)
-        }
-    }, [starredTracks, classicTracks, electroTracks, rockTracks, defaultTracks])
+        setTracks(tracksToSet)
+        setOriginalTracks(tracksToSet)
+        setFilteredTracks(tracksToSet)
+ 
+    }, [starredTracks, classicTracks, electroTracks, rockTracks, defaultTracks,pageId])
 
     const stringDateToNumber = (date) => {
         const [year, month, day] = date.split('-').map(Number)
         const number = year * 365 + month * 30 + day
         return number
     }
-
+    console.log(tracks);
+    console.log(originalTracks);
     useEffect(() => {
         let resultFilter = originalTracks.map((track) => {
             return {
@@ -105,7 +106,6 @@ const CenterBlockContent = ({ isLoading }) => {
                 filterAuthor.includes(track.author),
             )
         }
-
         setTracks(resultFilter)
         setFilteredTracks(resultFilter)
     }, [filterGenre, filterYear, filterAuthor])
@@ -116,6 +116,7 @@ const CenterBlockContent = ({ isLoading }) => {
                 track.name.toLowerCase().includes(searchText.toLowerCase()) ||
                 track.author.toLowerCase().includes(searchText.toLowerCase()),
         )
+
         setTracks(resultSearch)
     }, [searchText])
 
