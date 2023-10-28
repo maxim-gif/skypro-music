@@ -27,7 +27,7 @@ const CenterBlockContent = ({ isLoading }) => {
     const [tracks, setTracks] = useState([])
     const [originalTracks, setOriginalTracks] = useState([])
     const [filteredTracks, setFilteredTracks] = useState([])
-
+    console.log(starredTrack);
     const {
         Like,
         searchText,
@@ -49,6 +49,7 @@ const CenterBlockContent = ({ isLoading }) => {
 
 
     useEffect(() => {
+        console.log(starredTracks);
         setSearchText('')
         const tracksMap = {
             'default': defaultTracks,
@@ -60,11 +61,13 @@ const CenterBlockContent = ({ isLoading }) => {
  
         let tracksToSet
 
-        if (!pageId) {
+        if (!pageId && pageId !== 0) {
             tracksToSet = tracksMap['default'];
         } else {
             tracksToSet = tracksMap[pageId];
         }
+        console.log(tracksToSet);
+
         setTracks(tracksToSet)
         setOriginalTracks(tracksToSet)
         setFilteredTracks(tracksToSet)
@@ -76,8 +79,7 @@ const CenterBlockContent = ({ isLoading }) => {
         const number = year * 365 + month * 30 + day
         return number
     }
-    console.log(tracks);
-    console.log(originalTracks);
+
     useEffect(() => {
         let resultFilter = originalTracks.map((track) => {
             return {
