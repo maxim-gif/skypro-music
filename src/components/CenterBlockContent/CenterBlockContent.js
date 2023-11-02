@@ -15,6 +15,7 @@ import {
     TracksSelector,
     electroMusicTrackSelector,
 } from '../../Store/selectors/track.js'
+import { setFilteredTrack } from '../../Store/actions/creators/track.js'
 import { AuthContext } from '../../context/authContext.js'
 
 const trackSvg = `/img/icon/sprite.svg`
@@ -27,7 +28,7 @@ const CenterBlockContent = ({ isLoading }) => {
     const [tracks, setTracks] = useState([])
     const [originalTracks, setOriginalTracks] = useState([])
     const [filteredTracks, setFilteredTracks] = useState([])
-    console.log(starredTrack);
+
     const {
         Like,
         searchText,
@@ -49,7 +50,7 @@ const CenterBlockContent = ({ isLoading }) => {
 
 
     useEffect(() => {
-        console.log(starredTracks);
+
         setSearchText('')
         const tracksMap = {
             'default': defaultTracks,
@@ -66,11 +67,12 @@ const CenterBlockContent = ({ isLoading }) => {
         } else {
             tracksToSet = tracksMap[pageId];
         }
-        console.log(tracksToSet);
+
 
         setTracks(tracksToSet)
         setOriginalTracks(tracksToSet)
         setFilteredTracks(tracksToSet)
+        dispatch(setFilteredTrack(tracksToSet))
  
     }, [starredTracks, classicTracks, electroTracks, rockTracks, defaultTracks,pageId])
 
@@ -110,6 +112,7 @@ const CenterBlockContent = ({ isLoading }) => {
         }
         setTracks(resultFilter)
         setFilteredTracks(resultFilter)
+        dispatch(setFilteredTrack(resultFilter))
     }, [filterGenre, filterYear, filterAuthor])
 
     useEffect(() => {
@@ -118,7 +121,7 @@ const CenterBlockContent = ({ isLoading }) => {
                 track.name.toLowerCase().includes(searchText.toLowerCase()) ||
                 track.author.toLowerCase().includes(searchText.toLowerCase()),
         )
-
+        dispatch(setFilteredTrack(resultSearch))
         setTracks(resultSearch)
     }, [searchText])
 
