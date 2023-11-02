@@ -8,6 +8,7 @@ import {
     SET_CLEAR_TRACK,
     SET_STARRED_TRACK,
     SET_COMPILATION_ID_TRACK,
+    SET_FILTERED_TRACK,
 } from '../actions/types/track.js'
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
     electroMusicTrack: [],
     starredTrack: [],
     trackArr: [],
+    filteredTrack: [],
     track: {},
     shake: false,
     shakePlaylist: [],
@@ -31,18 +33,18 @@ export default function trackReducer(state = initialState, action) {
                     (track) => track.id === state.track.id,
                 )
             } else {
-                currentIndex = state.trackArr.findIndex(
+                currentIndex = state.filteredTrack.findIndex(
                     (track) => track.id === state.track.id,
                 )
             }
 
             let nextTrack = state.track
 
-            if (currentIndex + 1 < state.trackArr.length) {
+            if (currentIndex + 1 < state.filteredTrack.length) {
                 if (state.shake) {
                     nextTrack = state.shakePlaylist[currentIndex + 1]
                 } else {
-                    nextTrack = state.trackArr[currentIndex + 1]
+                    nextTrack = state.filteredTrack[currentIndex + 1]
                 }
             }
 
@@ -60,7 +62,7 @@ export default function trackReducer(state = initialState, action) {
                     (track) => track.id === state.track.id,
                 )
             } else {
-                currentIndex = state.trackArr.findIndex(
+                currentIndex = state.filteredTrack.findIndex(
                     (track) => track.id === state.track.id,
                 )
             }
@@ -71,7 +73,7 @@ export default function trackReducer(state = initialState, action) {
                 if (state.shake) {
                     previousTrack = state.shakePlaylist[currentIndex - 1]
                 } else {
-                    previousTrack = state.trackArr[currentIndex - 1]
+                    previousTrack = state.filteredTrack[currentIndex - 1]
                 }
             }
 
@@ -82,7 +84,7 @@ export default function trackReducer(state = initialState, action) {
         }
 
         case SHAKE_TRACK: {
-            const shuffledPlaylist = [...state.trackArr].sort(
+            const shuffledPlaylist = [...state.filteredTrack].sort(
                 () => Math.random() - 0.5,
             )
             return {
@@ -104,7 +106,7 @@ export default function trackReducer(state = initialState, action) {
         case SET_CLEAR_TRACK: {
             return {
                 ...state,
-                track: {}
+                track: {},
             }
         }
 
@@ -121,6 +123,14 @@ export default function trackReducer(state = initialState, action) {
             return {
                 ...state,
                 starredTrack: tracks,
+            }
+        }
+
+        case SET_FILTERED_TRACK: {
+            const { tracks } = action.payload
+            return {
+                ...state,
+                filteredTrack: tracks,
             }
         }
 
@@ -144,7 +154,7 @@ export default function trackReducer(state = initialState, action) {
                     rockMusicTrack: tracks,
                 }
             }
-            break
+            return state;
         }
 
         case SET_STATUS_PLAY: {

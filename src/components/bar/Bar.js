@@ -2,11 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { BarVolume } from '../BarVolume/BarVolume.js'
 import { BarControl } from '../BarControl/BarControl.js'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useContext } from 'react'
 import * as S from './Bar.style.js'
 import { useSelector } from 'react-redux'
-import { currentTrackSelector } from '../../Store/selectors/track.js'
+import {
+    currentTrackSelector,
+    starredTrackSelector,
+} from '../../Store/selectors/track.js'
 import { useDispatch } from 'react-redux'
+import { AuthContext } from '../../context/authContext.js'
 import {
     switchNextTrack,
     switchPreviousTrack,
@@ -15,6 +19,8 @@ import {
 
 const Bar = ({ isLoading }) => {
     let trackId = useSelector(currentTrackSelector)
+    let starredTrack = useSelector(starredTrackSelector)
+    const { Like } = useContext(AuthContext)
     const isVisible = !!trackId.id
 
     const [duration, setDuration] = useState(0)
@@ -86,6 +92,10 @@ const Bar = ({ isLoading }) => {
                     'ended',
                     handleSwitchNextTrack,
                 )
+                audioRef.current.removeEventListener('loadedmetadata', () => {
+                    setDuration(audioRef.current.duration)
+                    handleStart()
+                })
             }
         }
     }, [trackId])
@@ -97,7 +107,6 @@ const Bar = ({ isLoading }) => {
                     setCurrentTime(audioRef.current.currentTime)
                 }
             }
-                
 
             audioRef.current.addEventListener('timeupdate', onTimeUpdate)
 
@@ -183,14 +192,32 @@ const Bar = ({ isLoading }) => {
 
                                 <S.TrackPlayLikeDis>
                                     <S.TrackPlayLikeAndDis className="_btn-icon">
-                                        <S.TrackPlayLikeSvg alt="like">
-                                            <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
+                                        <S.TrackPlayLikeSvg
+                                            alt="like"
+                                            onClick={() => {
+                                                starredTrack.find(
+                                                    (item) =>
+                                                        item.id === trackId.id,
+                                                )
+                                                    ? Like(trackId.id, 'DELETE')
+                                                    : Like(trackId.id, 'POST')
+                                            }}
+                                        >
+                                            {starredTrack.find(
+                                                (item) =>
+                                                    item.id === trackId.id,
+                                            ) ? (
+                                                <image
+                                                    xlinkHref="/img/icon/like-active.png"
+                                                    width="100%"
+                                                    height="100%"
+                                                />
+                                            ) : (
+                                                <use
+                                                    xlinkHref={`/img/icon/sprite.svg#icon-like`}
+                                                ></use>
+                                            )}
                                         </S.TrackPlayLikeSvg>
-                                    </S.TrackPlayLikeAndDis>
-                                    <S.TrackPlayLikeAndDis className="_btn-icon">
-                                        <S.TrackPlayDislikeSvg alt="dislike">
-                                            <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
-                                        </S.TrackPlayDislikeSvg>
                                     </S.TrackPlayLikeAndDis>
                                 </S.TrackPlayLikeDis>
                             </S.PlayerTrackPlay>

@@ -259,3 +259,11 @@ export const ContentPlaylist = styled.div`
     scrollbar-width: none;
     -ms-overflow-style: none;
 `
+
+export const NotFound = styled.div`
+    height: 56px;
+    width: 100%;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+`

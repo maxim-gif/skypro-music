@@ -8,6 +8,7 @@ import {
     SET_CLEAR_TRACK,
     SET_STARRED_TRACK,
     SET_COMPILATION_ID_TRACK,
+    SET_FILTERED_TRACK,
 } from '../types/track.js'
 
 export const switchNextTrack = () => ({
@@ -38,6 +39,13 @@ export const setTrackArr = (tracks) => ({
 
 export const setStarredTrack = (tracks) => ({
     type: SET_STARRED_TRACK,
+    payload: {
+        tracks,
+    },
+})
+
+export const setFilteredTrack = (tracks) => ({
+    type: SET_FILTERED_TRACK,
     payload: {
         tracks,
     },

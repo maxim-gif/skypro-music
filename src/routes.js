@@ -24,8 +24,24 @@ export const AppRoutes = () => {
                     />
                 }
             >
-                <Route path="/" element={<><HomePage /><Bar /></>} />
-                <Route path="/compilations/:id" element={<><Compilations /><Bar /></>} />
+                <Route
+                    path="/"
+                    element={
+                        <>
+                            <HomePage />
+                            <Bar />
+                        </>
+                    }
+                />
+                <Route
+                    path="/compilations/:id"
+                    element={
+                        <>
+                            <Compilations />
+                            <Bar />
+                        </>
+                    }
+                />
             </Route>
         </Routes>
     )
